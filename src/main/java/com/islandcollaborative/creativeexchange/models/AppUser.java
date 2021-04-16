@@ -26,6 +26,8 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Post> posts;
 
+    //TODO follow another user
+
     @CreationTimestamp
     LocalDateTime createdAt;
 }
