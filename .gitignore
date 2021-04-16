@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# Env file: application secrets, passwords, and API keys, tokens
+.env
+
 # Log file
 *.log
 
