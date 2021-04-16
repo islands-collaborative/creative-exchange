@@ -3,6 +3,10 @@ A web application built by Andy Agulue, Edward Hou, James Mansour, and Seamus Br
 
 So far unnamed but taking shape.
 
+## Software Requirements
+
+-[Link](docs/requirements.md)
+
 ## User Stories
 
 ### User Story: Account
