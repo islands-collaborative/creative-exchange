@@ -74,5 +74,5 @@ When we are discussing the project, iterate through everyone's ideas to hear the
 
 # Potential schedule conflicts:
 
-- James: Tuesday, can’t work past 5pm
+- James: Tuesday, can’t work past 5pm :)
 - Andy: Thursday, covid vacc at 11:30am
