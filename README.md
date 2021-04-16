@@ -1,7 +1,21 @@
 # Creative Exchange
+
 A web application built by Andy Agulue, Edward Hou, James Mansour, and Seamus Brown.
 
 So far unnamed but taking shape.
+
+# Usage
+
+Set the environment variables to include database credentials and API keys.
+
+A PostgreSQL database and an AWS S3 deployment are currently required to run.
+
+An example of the environment files that need to be set can be found in the [`.env.example`](.env.example) file.
+
+```
+source .env       # Sets the enviroment variables in the current shell
+./gradlew bootRun # Runs the application
+```
 
 ## Software Requirements
 
@@ -21,7 +35,7 @@ As a user I’d like to be able to securely create and manage a personal account
 - User Repo/Database
 - Manage profile
 
-#### Testing 
+#### Testing
 
 - Ensure user can be created and stored in a database
 - Ensure that password is encoded and decoded appropriately
@@ -38,7 +52,7 @@ As a user I’d like to have a streamlined experience for using the site as a cr
 - Post examples of my work
 - View job postings
 
-#### Testing 
+#### Testing
 
 - Ensure that visitors and creators can discover profile by tag or name search
 - Ensure that my profile has places for creators to display their work
@@ -55,7 +69,7 @@ As a user I’d like to have a streamlined experience for viewing the content an
 - Comments
 - Personal profile is only viewable from job posts
 
-#### Testing 
+#### Testing
 
 - Ensure that creators posts will display in followers feed
 - Ensure that visitors profiles don't display in discover searches
@@ -71,7 +85,7 @@ As a user I’d like to be able to communicate with other users on the site.
 - Comments
 - Websocket communication?
 
-#### Testing 
+#### Testing
 
 - Ensure that visitors can send and receive a message to/from a creator
 - Ensure that comments will display to visitors and creators
@@ -86,7 +100,7 @@ As a user I’d like to learn more about the handsome fellows who made this amaz
 - Github/ Linkedin links
 - Profile picture
 
-#### Testing 
+#### Testing
 
 - Ensure that about us is linked in footer.
 - Ensure the Profiles are viewable and links are clickable
