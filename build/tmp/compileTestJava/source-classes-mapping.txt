@@ -1,2 +1,0 @@
-com/islandcollaborative/creativeexchange/CreativeexchangeApplicationTests.java
- com.islandcollaborative.creativeexchange.CreativeexchangeApplicationTests
