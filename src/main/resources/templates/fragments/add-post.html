@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section th:fragment="addPost">
+    <form th:action="/posts">
+        <fieldset>
+            <label for="edit-title">Post Title:</label>
+            <input id="edit-title" type="text" name="title"></input>
+        </fieldset>
+        <fieldset>
+            <label for="edit-description">Post Title:</label>
+            <input id="edit-description" type="text" name="title"></input>
+        </fieldset>
+        <input type="submit" value="Submit Post!"></input>
+    </form>
+</section>
+</body>
+</html>

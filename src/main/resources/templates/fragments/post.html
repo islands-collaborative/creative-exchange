@@ -4,18 +4,50 @@
 </head>
 <body>
 
+<section th:fragment="list(posts)">
+<ul th:each="post : ${posts}">
+    <li th:replace="short(${post})"></li>
+</ul>
+</section>
+
 <section th:fragment="short(post)">
-
+    <th:block th:if="${principal} and ${principal.id == post.author.id}">
+        <th:block th:replace="${usersOwnShort(${post})"></th:block>
+    </th:block>
+    <th:block th:if="${principal} and ${principal.id != post.author.id}">
+        <th:block th:replace="${loggedInShort(${post})"></th:block>
+    </th:block>
+    <th:block th:if="${principal == null}">
+        <th:block th:replace="${notLoggedInShort(${post})"></th:block>
+    </th:block>
 </section>
 
-<section th:fragment="loggedInShort(post)">
-</section>
 
-<section th:fragment="notLoggedInShort(post)">
-</section>
+<th:block th:fragment="usersOwnShort(post)">
+    <a th:href="'/posts/' + ${post.id}">
+        <h2 th:text="${post.title}"></h2>
+    </a>
+    <p th:text="${post.description}"></p>
+    <nav>
+        <ul>
+            <li>Edit post</li>
+        </ul>
+    </nav>
+</th:block>
 
-<section th:fragment="usersOwnShort(post)">
-</section>
+<th:block th:fragment="loggedInShort(post)">
+    <a th:href="'/posts/' + ${post.id}">
+        <h2 th:text="${post.title}"></h2>
+    </a>
+    <p th:text="${post.description}"></p>
+</th:block>
+
+<th:block th:fragment="notLoggedInShort(post)">
+    <a th:href="'/posts/' + ${post.id}">
+        <h2 th:text="${post.title}"></h2>
+    </a>
+    <p th:text="${post.description}"></p>
+</th:block>
 
 </body>
 </html>

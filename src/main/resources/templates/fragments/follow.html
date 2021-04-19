@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<div th:fragment="follow(user)" th:if="${user.username != principal.username} ">
+  <form th:action="'/follow/' + ${user.id}" method="post">
+
+
+    <input type="submit" value="follow">
+</div>
+</body>
+</html>

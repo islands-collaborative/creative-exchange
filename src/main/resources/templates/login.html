@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="fragments/head :: head('Login')">
 </head>
 <body>
+<form action="/login" method="post">
+    <label for="username">username</label>
+    <input type="text" name="username" required>
 
+    <label for="password">password</label>
+    <input type="password" name="password" required>
+
+
+
+    <input type="submit" value="login">
 </body>
 </html>
