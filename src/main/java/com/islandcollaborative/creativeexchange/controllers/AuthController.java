@@ -9,12 +9,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Controller
 public class AuthController {
 
     @Autowired
@@ -33,7 +35,7 @@ public class AuthController {
 
     @GetMapping("/signup")
     public String showSignup() {
-        return "sign-up";
+        return "signup";
     }
 
     // POST /signup: Creates a new user when they sign up. Redirects user to user account page /users/

@@ -2,13 +2,24 @@
 <html lang="en">
 <head></head>
 <body>
-<div class="p-3 mb-2 bg-secondary text-white">.bg-secondary
+<nav th:fragment="nav">
+    <th:block th:if="${userPrincipal}">
+        <th:block th:replace="loggedIn"></th:block>
+    </th:block>
+    <th:block th:if="${userPrincipal == null}">
+        <th:block th:replace="fragments/log-nav :: loggedOut"></th:block>
+    </th:block>
+
+
+
+</nav>
 <nav th:fragment="loggedIn">
     <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/profile">Profile</a></li>
         <li><a href="/feed">Feed</a></li>
         <li><a href="/discover">Discover</a></li>
+        <li><a href="/about">About Us</a></li>
 
 
     <li th:text="${principal.username}"></li>
@@ -21,8 +32,8 @@
         <li><a href="/">Home</a></li>
         <li><a href="/login">Login</a></li>
         <li><a href="/signup">Signup</a></li>
+        <li><a href="/about">About Us</a></li>
     </ul>
 </nav>
-</div>
 </body>
 </html>

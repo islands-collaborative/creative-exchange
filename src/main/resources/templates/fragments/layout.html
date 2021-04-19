@@ -5,14 +5,14 @@
     <title>Title</title>
 </head>
 <body>
+<header th:fragment="header"
+        class="p-3 mb-2 bg-secondary bg-gradient text-white">
+    <h1>CreativExchange</h1>
+    <nav th:replace="${userPrincipal == null} ?
+    ~{fragments/logged-nav :: loggedOut} :
+    ~{fragments/logged-nav :: loggedIn}">
 
-<header class="p-3 mb-2 bg-secondary bg-gradient text-white" th:fragment="header">
-    <h1>App Name/Logo</h1>
-    <nav class="navbar-top">
-        <ul>
-            <li>Link</li>
-            <li>Link</li>
-        </ul>
+
     </nav>
 </header>
 
