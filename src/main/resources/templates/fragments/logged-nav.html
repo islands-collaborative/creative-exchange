@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<nav th:fragment="loggedIn">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/feed">Feed</a></li>
+        <li><a href="/discover">Discover</a></li>
+
+
+    <li th:text="${principal.username}"></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</nav>
+
+<nav th:fragment="loggedOut">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/signup">Signup</a></li>
+    </ul>
+</nav>
+</body>
+</html>

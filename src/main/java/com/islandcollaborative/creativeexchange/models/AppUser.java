@@ -16,6 +16,7 @@ public class AppUser {
     String username;
     String password;
     String displayName;
+    String blurb;
     Boolean isCreator;
     //TODO Picture
 
