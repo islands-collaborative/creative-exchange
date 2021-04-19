@@ -53,8 +53,8 @@ public class UserController {
      */
     @GetMapping("/profile")
     public String getProfile(HttpServletRequest request, Model m) {
-        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        m.addAttribute("userPrincipal", userPrincipal);
+//        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+//        m.addAttribute("userPrincipal", userPrincipal);
         return "my-profile";
     }
 
@@ -67,7 +67,7 @@ public class UserController {
      * information, linked accounts. Redirects to /profile.
      */
     @PutMapping("/profile")
-    public RedirectView updateProfile(String username,
+    public RedirectView updateProfile(
                                       String displayName,
                                       String bio,
                                       String blurb,
@@ -75,11 +75,10 @@ public class UserController {
                                       HttpServletRequest request,
                                       Model m) {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        userPrincipal.setBio(bio);
-        userPrincipal.setUsername(username);
-        userPrincipal.setDisplayName(displayName);
-        userPrincipal.setCreator(isCreator);
-        userPrincipal.setBlurb(blurb);
+        if (bio != null)userPrincipal.setBio(bio);
+        if (displayName!= null)userPrincipal.setDisplayName(displayName);
+        if (isCreator!= null)userPrincipal.setCreator(isCreator);
+        if (blurb!= null)userPrincipal.setBlurb(blurb);
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }
