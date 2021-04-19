@@ -77,4 +77,37 @@ public class AppUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    /**
+     * @return List<Message>
+     *
+     * Returns a list of the most recent message from each thread for this user.
+     */
+    public List<Message> getThreads() {
+        //todo
+        return sentMessages;
+    }
+
+    public List<Message> getSentMessages() {
+        return sentMessages;
+    }
+
+    /**
+     * @param ThreadWithId Id of related user.
+     * @return List<Message>
+     *
+     * Gets a list of messages to represent the thread with a single other user.
+     */
+    public List<Message> getMessageThread(Long ThreadWithId) {
+        //todo
+        return sentMessages;
+    }
+
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
 }
