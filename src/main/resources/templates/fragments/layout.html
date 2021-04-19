@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<header th:fragment="header">
+<header th:fragment="header"
+        class="p-3 mb-2 bg-secondary bg-gradient text-white">
     <h1>CreativExchange</h1>
     <nav th:replace="${userPrincipal == null} ?
     ~{fragments/logged-nav :: loggedOut} :
@@ -15,8 +16,13 @@
     </nav>
 </header>
 
+<nav th:fragment="loggedIn">
+</nav>
 
-<footer th:fragment="footer">
+<nav th:fragment="loggedOut">
+</nav>
+
+<footer class="p-3 mb-2 bg-light bg-gradient text-white position-relative bottom" th:fragment="footer">
     footer
 </footer>
 </body>
