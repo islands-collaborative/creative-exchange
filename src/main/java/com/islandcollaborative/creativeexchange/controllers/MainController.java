@@ -10,16 +10,16 @@ public class MainController {
 
     @GetMapping("/")
     public String getIndex() {
-        return "";
+        return "index";
     }
 
     @GetMapping("/about")
     public String getAbout() {
-        return "";
+        return "about";
     }
 
     @GetMapping("/privacy")
     public String getPrivacy() {
-        return "";
+        return "privacy";
     }
 }

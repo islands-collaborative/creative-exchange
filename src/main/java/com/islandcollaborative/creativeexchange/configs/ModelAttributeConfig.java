@@ -17,7 +17,6 @@ public class ModelAttributeConfig {
     @ModelAttribute
     public void addUser(Model model, Principal principal) {
         // Populates the principal attribute of the model if a user is currently authenticated.
-
         if(principal != null) {
             AppUser userPrincipal = appUserRepository.findByUsername(principal.getName());
             model.addAttribute("principal", userPrincipal);
