@@ -15,6 +15,7 @@ public class Post {
 
     @Column(columnDefinition = "TEXT")
     String post;
+    String title;
 
     @ManyToOne
     @JoinColumn(name = "app_user_id")
