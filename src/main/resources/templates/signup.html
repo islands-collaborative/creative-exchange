@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head('Signup')">
+</head>
+<body>
+<header th:replace="fragments/layout :: header"> </header>
+<main>
+    <h1>Sign up</h1>
+    <form action="/signup" method="post">
+        <label for="input-username">username</label>
+        <input id="input-username" type="text" name="username" required>
+
+        <label for="input-password">password</label>
+        <input id="input-password" type="password" name="password" required>
+
+        <input type="submit" value="signup">
+    </form>
+</main>
+<footer th:replace="fragments/layout :: footer"> </footer>
+</body>
+</html>

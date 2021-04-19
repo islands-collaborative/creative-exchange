@@ -18,6 +18,7 @@ public class AppUser implements UserDetails {
     String username;
     String password;
     String displayName;
+    String blurb;
     Boolean isCreator;
     //TODO Picture
 

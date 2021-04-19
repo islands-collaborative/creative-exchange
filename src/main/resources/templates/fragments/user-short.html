@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<section th:fragment="list(users)">
+    <ul th:each="user : ${users}">
+        <li th:replace="short(${user})"></li>
+    </ul>
+</section>
+
+
+<section th:fragment="short(user)">
+    <th:block th:if="${userPrincipal}">
+        <th:block th:replace="${loggedInUserShort(${user})"></th:block>
+    </th:block>
+    <th:block th:unless="${userPrincipal}">
+        <th:block th:replace="${loggedOutUserShort(${user})"></th:block>
+    </th:block>
+</section>
+
+<th:block th:fragment="loggedInUserShort(user)">
+    <a href="'/user/' + ${user.id}">
+        <h2 th:text="${user.displayName}"></h2>
+    </a>
+    <p th:text="${user.blurb}"></p>
+    <div th:replace="fragments/follow :: follow(user) "></div>
+</th:block>
+
+<th:block th:fragment="loggedOutUserShort(user)">
+    <a href="'/user/' + ${user.id}">
+        <h2 th:text="${user.displayName}"></h2>
+    </a>
+    <p th:text="${user.blurb}"></p>
+</th:block>
+</body>
+
+
+</html>
