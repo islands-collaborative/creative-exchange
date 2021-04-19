@@ -55,7 +55,7 @@ public class UserController {
     public String getProfile(HttpServletRequest request, Model m) {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
         m.addAttribute("messages", userPrincipal);
-        return "user-detail";
+        return "my-profile";
     }
 
     /**
