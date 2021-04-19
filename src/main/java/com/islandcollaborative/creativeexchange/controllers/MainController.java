@@ -17,7 +17,7 @@ public class MainController {
 
     @GetMapping("/about")
     public String getAbout() {
-        return "about";
+        return "about-us";
     }
 
     @GetMapping("/privacy")
