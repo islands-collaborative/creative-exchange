@@ -1,10 +1,7 @@
 package com.islandcollaborative.creativeexchange.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -36,7 +33,7 @@ public class MessageController {
     }
 
     // - `DELETE /users/{userId}/messages/{messageId}`: (Stretch goal). Requires authentication. Deletes a message. Redirects to the message thread at `/users/{userId}/messages`.
-    @PutMapping("/users/{userId}/messages/{messageId}")
+    @DeleteMapping("/users/{userId}/messages/{messageId}")
     public RedirectView deleteMessage(@PathVariable long userId,
                                       @PathVariable long messageId) {
         return new RedirectView("/users/" + userId + "/messages");
