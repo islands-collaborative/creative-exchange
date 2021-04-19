@@ -7,19 +7,14 @@
 <body>
 <header th:fragment="header">
     <h1>App Name/Logo</h1>
-    <nav class="navbar-top">
-        <ul>
-            <li>Link</li>
-            <li>Link</li>
-        </ul>
+    <nav th:replace="${userPrincipal == null} ?
+    ~{fragments/logged-nav :: loggedOut} :
+    ~{fragments/logged-nav :: loggedIn}">
+
+
     </nav>
 </header>
 
-<nav th:fragment="loggedIn">
-</nav>
-
-<nav th:fragment="loggedOut">
-</nav>
 
 <footer th:fragment="footer">
     footer
