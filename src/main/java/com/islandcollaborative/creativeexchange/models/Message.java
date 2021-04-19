@@ -4,7 +4,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
 
 @Entity
 public class Message {
@@ -22,4 +21,13 @@ public class Message {
 
     @CreationTimestamp
     LocalDateTime createdAt;
+
+    public Message() {
+    }
+
+    public Message(AppUser sender, AppUser recipient, String message) {
+        this.sender = sender;
+        this.recipient = recipient;
+        this.message = message;
+    }
 }
