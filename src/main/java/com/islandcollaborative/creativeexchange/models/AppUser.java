@@ -18,7 +18,7 @@ public class AppUser implements UserDetails {
     String username;
     String password;
     String displayName;
-    String blurb;
+    String bio;
     Boolean isCreator;
     //TODO Picture
 
@@ -110,5 +110,38 @@ public class AppUser implements UserDetails {
 
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setCreator(Boolean creator) {
+        isCreator = creator;
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public Boolean getCreator() {
+        return isCreator;
     }
 }
