@@ -54,7 +54,7 @@ public class UserController {
     @GetMapping("/profile")
     public String getProfile(HttpServletRequest request, Model m) {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        m.addAttribute("messages", userPrincipal);
+        m.addAttribute("userPrincipal", userPrincipal);
         return "my-profile";
     }
 
@@ -70,6 +70,7 @@ public class UserController {
     public RedirectView updateProfile(String username,
                                       String displayName,
                                       String bio,
+                                      String blurb,
                                       Boolean isCreator,
                                       HttpServletRequest request,
                                       Model m) {
@@ -78,6 +79,7 @@ public class UserController {
         userPrincipal.setUsername(username);
         userPrincipal.setDisplayName(displayName);
         userPrincipal.setCreator(isCreator);
+        userPrincipal.setBlurb(blurb);
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }

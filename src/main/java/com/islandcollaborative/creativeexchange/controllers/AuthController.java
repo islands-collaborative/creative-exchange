@@ -47,7 +47,7 @@ public class AuthController {
                                    HttpServletRequest request) {
 
 //      ================ Create User =============
-        AppUser user = new AppUser(passwordEncoder.encode(password), username, displayName, isCreator);
+        AppUser user = new AppUser(username, passwordEncoder.encode(password),  displayName, isCreator);
         appUserRepository.save(user);
 
 //      ============== Signed in User ============
@@ -56,6 +56,6 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new RedirectView("/user");
+        return new RedirectView("/profile");
     }
 }
