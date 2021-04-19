@@ -10,10 +10,10 @@
 
 
 <section th:fragment="short(user)">
-    <th:block th:if="${principal}">
+    <th:block th:if="${userPrincipal}">
         <th:block th:replace="${loggedInUserShort(${user})"></th:block>
     </th:block>
-    <th:block th:unless="${principal}">
+    <th:block th:unless="${userPrincipal}">
         <th:block th:replace="${loggedOutUserShort(${user})"></th:block>
     </th:block>
 </section>
