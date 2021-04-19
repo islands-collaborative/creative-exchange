@@ -15,13 +15,18 @@ public class Post {
 
     @Column(columnDefinition = "TEXT")
     String post;
+
     @ManyToOne
     @JoinColumn(name = "app_user_id")
-    //TODO Picture
+    AppUser author;
+
+    /* @Column(columnDefinition = "")
+    List<String> imagePaths;
+     */
+
 
     @CreationTimestamp
     LocalDateTime createdAt;
-
 
     public Post(){}
 

@@ -6,17 +6,18 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Entity
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
     @ManyToOne
-    @JoinColumn(name = "from_app_user_id")
-    AppUser fromUser;
+    @JoinColumn(name = "sender_user_id")
+    AppUser sender;
     @ManyToOne
-    @JoinColumn(name = "to_app_user_id")
-    AppUser toUser;
+    @JoinColumn(name = "recipient_user_id")
+    AppUser recipient;
     String message;
 
     @CreationTimestamp
