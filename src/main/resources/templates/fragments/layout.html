@@ -6,7 +6,7 @@
 </head>
 <body>
 <header th:fragment="header">
-    <h1>App Name/Logo</h1>
+    <h1>CreativExchange</h1>
     <nav th:replace="${userPrincipal == null} ?
     ~{fragments/logged-nav :: loggedOut} :
     ~{fragments/logged-nav :: loggedIn}">
