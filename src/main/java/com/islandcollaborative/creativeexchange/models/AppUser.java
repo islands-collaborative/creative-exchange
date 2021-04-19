@@ -30,4 +30,14 @@ public class AppUser {
 
     @CreationTimestamp
     LocalDateTime createdAt;
+
+    public AppUser() {
+    }
+
+    public AppUser(String username, String password, String displayName, Boolean isCreator) {
+        this.username = username;
+        this.password = password;
+        this.displayName = displayName;
+        this.isCreator = isCreator;
+    }
 }
