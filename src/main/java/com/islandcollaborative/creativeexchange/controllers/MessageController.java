@@ -50,16 +50,16 @@ public class MessageController {
      */
     @GetMapping("/users/{userId}/messages")
     public String getThread(@PathVariable long userId, HttpServletRequest request, Model m) {
-//        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-//        m.addAttribute("messages", userPrincipal.getMessageThread(appUserRepository.getOne(userId)));
-
-
-
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        AppUser userSubject = appUserRepository.getOne(userId);
+        AppUser correspondent = appUserRepository.getOne(userId);
+        m.addAttribute("correspondent", correspondent);
+        m.addAttribute("messages", userPrincipal.getMessageThread(correspondent));
 
-        List<Message> thread = messageRepository.getAllMessages(userPrincipal.getId(), userSubject.getId());
-        m.addAttribute("messages", thread);
+//        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+//        AppUser userSubject = appUserRepository.getOne(userId);
+//
+//        List<Message> thread = messageRepository.getAllMessages(userPrincipal.getId(), userSubject.getId());
+//        m.addAttribute("messages", thread);
         return "thread";
     }
 
