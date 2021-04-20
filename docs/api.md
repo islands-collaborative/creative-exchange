@@ -41,8 +41,8 @@ Right now this is a rough outline of the planned routes for our application's AP
 - `GET /users/{userId}/messages`: Requires authentication. Displays a thread of the messages between the currently
   logged in user and the subject user indicated by the `{userId}` parameter. Also provides a form for the user to send a
   message in that thread.
-- `POST /users/{userId}/messages`: Requires authentication. Sends a message from the currently logged in user to the
-  subject user. Redirects to the message thread at `/users/{userId}/messages`.
+- `POST /messages`: Requires authentication. Sends a message from the currently logged in user to the
+  subject user. Redirects to the message thread at `/messages`.
 - `PUT /users/{userId}/messages/{messageId}`: (Stretch goal). Requires authentication. Edits a message. Redirects to the
   message thread at `/users/{userId}/messages`.
 - `DELETE /users/{userId}/messages/{messageId}`: (Stretch goal). Requires authentication. Deletes a message. Redirects
