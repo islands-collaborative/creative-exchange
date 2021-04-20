@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class AppUser implements UserDetails {
@@ -35,7 +33,15 @@ public class AppUser implements UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Post> posts = new ArrayList<>();
 
-    //TODO follow another user
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(
+            name = "following_relations",
+            joinColumns = {@JoinColumn(name = "followers")},
+            inverseJoinColumns = {@JoinColumn(name = "followed")}
+    )
+    Set<AppUser> followers = new HashSet<>();
+    @ManyToMany(mappedBy = "followers")
+    Set<AppUser> followed = new HashSet<>();
 
     @CreationTimestamp
     LocalDateTime createdAt;
@@ -113,6 +119,10 @@ public class AppUser implements UserDetails {
         return MessageService.getMessageThread(user, this);
     }
 
+    public void addFollowing(AppUser userToFollow){
+        followed.add(userToFollow);
+    }
+
     public List<Message> getSentMessages() {
         return sentMessages;
     }
@@ -130,7 +140,7 @@ public class AppUser implements UserDetails {
     }
 
     public String getDisplayName() {
-        return displayName;
+        return displayName == null ? username : displayName;
     }
 
     public void setDisplayName(String displayName) {
