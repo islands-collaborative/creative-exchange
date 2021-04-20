@@ -18,7 +18,9 @@ public class AppUser implements UserDetails {
     String username;
     String password;
     String displayName;
+    @Column(columnDefinition = "TEXT")
     String bio;
+    String blurb;
     Boolean isCreator;
     //TODO Picture
 
@@ -33,6 +35,14 @@ public class AppUser implements UserDetails {
 
     @CreationTimestamp
     LocalDateTime createdAt;
+
+    public String getBlurb() {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
+    }
 
     public AppUser() {
     }
