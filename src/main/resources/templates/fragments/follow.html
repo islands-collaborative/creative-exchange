@@ -3,7 +3,7 @@
 
 <body>
 <div th:fragment="follow(user)">
-  <th:block th:if="${userPrincipal} and ${userPrincipal.followers.contains(userPrincipal)}">
+  <th:block th:if="${userPrincipal} and ${userPrincipal.followed.contains(user)}">
   <form th:action="'/follow/' + ${user.id} + '?_method=delete'" method="post">
     <input type="submit" value="Unfollow">
   </form>

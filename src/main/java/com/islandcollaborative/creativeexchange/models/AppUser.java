@@ -131,7 +131,7 @@ public class AppUser implements UserDetails {
         return followers;
     }
 
-    // the people you follow
+
     public Set<AppUser> getFollowed() {
         return followed;
     }
@@ -139,8 +139,8 @@ public class AppUser implements UserDetails {
     public void addFollowing(AppUser userToFollow){
         followed.add(userToFollow);
     }
-    public void removeFollowing(AppUser user){
-        followed.remove(user);
+    public void removeFollowing(AppUser userToRemove){
+        followed.remove(userToRemove);
     }
 
     public List<Message> getSentMessages() {

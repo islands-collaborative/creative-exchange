@@ -83,6 +83,7 @@ public class UserController {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
         if (userPrincipal.getCreator() == null || userPrincipal.getCreator() == false) userPrincipal.setCreator(true);
         else userPrincipal.setCreator(false);
+//        this version did not work
 //        if (userPrincipal.getCreator() == null)
 //        userPrincipal.setCreator(!userPrincipal.getCreator());
         appUserRepository.save(userPrincipal);
@@ -132,9 +133,9 @@ public class UserController {
     public RedirectView unfollowUser (HttpServletRequest request, @PathVariable long id){
 
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        AppUser user = appUserRepository.findById(id).get();
-        user.removeFollowing(userPrincipal);
-        appUserRepository.save(user);
+        AppUser userSubject = appUserRepository.findById(id).get();
+        userPrincipal.removeFollowing(userSubject);
+        appUserRepository.save(userSubject);
 
         return new RedirectView("/users/" + id);
 
