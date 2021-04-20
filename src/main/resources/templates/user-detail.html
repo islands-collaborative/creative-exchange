@@ -7,7 +7,9 @@
     <li th:text="'Name: ' + ${user.displayName}"></li>
 <li th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></li>
     <li th:if="${user.bio}" th:text="'Bio: ' + ${user.bio}"></li>
-<!--    <div th:replace="fragments/follow :: follow(${user}) "></div>-->
+    <div th:replace="fragments/follow :: follow(${user}) "></div>
+
+
 
 
 
