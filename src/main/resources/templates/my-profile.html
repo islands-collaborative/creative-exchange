@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head :: head('My profile')">
 
 </head>
@@ -7,28 +7,44 @@
 <header th:replace="fragments/layout :: header"> </header>
     <main>
         <h1>My Profile</h1>
+        <img th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
         <ul>
             <li th:text="'Username: ' + ${userPrincipal.username}"></li>
             <li th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
             <li th:text="'Bio: ' + ${userPrincipal.bio}"></li>
             <li th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
-
         </ul>
         <form action="/profile?_method=PUT" method="post">
-            <input type="hidden" th:name="username">
-            <label for="displayName">Display Name</label>
-            <input type="text" name="displayName">
-            <input type="checkbox" name="isCreator">
-            <label for="isCreator">Creator?</label>
-            <label for="blurb" >Blurb</label>
-            <input type="text" name="blurb">
-            <label for="bio">Bio</label>
-            <textarea name="bio" id="" cols="30" rows="10"></textarea>
+            <fieldset>
+                <label for="input-display-name">Display Name</label>
+                <input id="input-display-name" type="text" name="displayName">
+            </fieldset>
+            <fieldset>
+                <label for="checkbox-is-creator">Is Creator?</label>
+                <input id="checkbox-is-creator" type="checkbox" name="isCreator">
+            </fieldset>
+            <fieldset>
+                <label for="input-blurb">Blurb</label>
+                <input id="input-blurb" type="text" name="blurb">
+            </fieldset>
+            <fieldset>
+                <label for="textarea-bio">Bio</label>
+                <textarea name="bio" id="textarea-bio" cols="30" rows="10"></textarea>
+            </fieldset>
             <input type="submit" value="post">
         </form>
 
+        <form action="/profile?_method=PUT" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <label for="image-upload">Profile picture</label>
+                <input name="image"
+                       id="image-upload"
+                       type="file" accept="image/*"></input>
+            </fieldset>
+            <input type="submit" value="Change Profile Image"></input>
+        </form>
     </main>
-<footer th:replace="fragments/layout :: footer"> </footer>
+<footer th:replace="fragments/layout :: footer"></footer>
 
 </body>
 </html>

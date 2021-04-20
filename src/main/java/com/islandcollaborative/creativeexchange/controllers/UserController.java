@@ -2,19 +2,30 @@ package com.islandcollaborative.creativeexchange.controllers;
 
 import com.islandcollaborative.creativeexchange.models.AppUser;
 import com.islandcollaborative.creativeexchange.repositories.AppUserRepository;
+import com.islandcollaborative.creativeexchange.services.AppUserService;
+import com.islandcollaborative.creativeexchange.services.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class UserController {
+    @Autowired
+    FileUploadService fileUploadService;
+
+    @Autowired
+    AppUserService appUserService;
 
     @Autowired
     AppUserRepository appUserRepository;
@@ -59,7 +70,7 @@ public class UserController {
      * Provides a view that allows users to edit their own profile, edit and add their posts
      */
     @GetMapping("/profile")
-    public String getProfile(HttpServletRequest request, Model m) {
+    public String getProfile() {
         return "my-profile";
     }
 
@@ -72,17 +83,20 @@ public class UserController {
      * information, linked accounts. Redirects to /profile.
      */
     @PutMapping("/profile")
-    public RedirectView updateProfile( String displayName,
+    public RedirectView updateProfile(String displayName,
                                       String bio,
                                       String blurb,
                                       Boolean isCreator,
-                                      HttpServletRequest request,
-                                      Model m) {
+                                      @RequestParam("image") MultipartFile multipartFile,
+                                      HttpServletRequest request) throws IOException {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
         if (bio != null) userPrincipal.setBio(bio);
         if (displayName != null) userPrincipal.setDisplayName(displayName);
         if (isCreator != null) userPrincipal.setCreator(isCreator);
         if (blurb != null) userPrincipal.setBlurb(blurb);
+
+
+        appUserService.updateProfilePicture(userPrincipal, multipartFile);
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }

@@ -6,13 +6,16 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConfigurationProperties(prefix = "aws")
 public class AmazonConfig {
-    private String accessKey = System.getenv("S3_ACCESS_KEY_ID");
-    private String secretKey = System.getenv("S3_SECRET_ACCESS_KEY");
+    private String accessKey;
+    private String secretKey;
+    private String region;
 
     @Bean
     public AmazonS3 s3() {
@@ -20,9 +23,14 @@ public class AmazonConfig {
                 new BasicAWSCredentials(accessKey, secretKey);
         return AmazonS3ClientBuilder
                 .standard()
-                .withRegion("us-west-2")
+                .withRegion(region)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
     }
 
+    public void setAccessKey(String accessKey) { this.accessKey = accessKey; }
+
+    public void setSecretKey(String secretKey) { this.secretKey = secretKey; }
+
+    public void setRegion(String region) { this.region = region; }
 }

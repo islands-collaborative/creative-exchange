@@ -22,6 +22,7 @@ public class AppUser implements UserDetails {
     String bio;
     String blurb;
     Boolean isCreator;
+    String imageFilename;
     //TODO Picture
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -153,5 +154,11 @@ public class AppUser implements UserDetails {
 
     public Boolean getCreator() {
         return isCreator;
+    }
+
+    public String getImageFilename() { return imageFilename; }
+
+    public void setImageFilename(String filename) {
+        imageFilename = filename;
     }
 }

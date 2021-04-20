@@ -15,18 +15,25 @@ public class FileUploadService {
     @Autowired
     private AmazonS3 amazonS3;
 
-    @Value("aws.bucketName") private String bucketName;
+    @Value("${aws.bucketName}") private String bucketName;
 
-    private void upload( String fileName,
+    public void upload(String fileName,
                        InputStream inputStream
-                       ) {
+    ) {
         ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.addUserMetadata("public", "true");
 
         try {
+            System.out.println(bucketName);
+            System.out.println(fileName);
+            System.out.println(objectMetadata);
             amazonS3.putObject(bucketName, fileName, inputStream, objectMetadata);
         } catch (AmazonServiceException e) {
             throw new IllegalStateException("Failed to upload the file");
         }
     }
 
+    public String getURL(String key) {
+        return amazonS3.getUrl(bucketName, key).toString();
+    }
 }
