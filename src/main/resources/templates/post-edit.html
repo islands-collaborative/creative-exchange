@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head('Post: ' + ${post.title})"></head>
+<body>
+<header th:replace="fragments/layout :: header"></header>
+
+<main>
+    <h1 th:text="${post.title}"></h1>
+    <h2 th:text="'Post by ' + ${post.author.displayName}"></h2>
+    <h3 th:text="'Posted on ' + ${post.createdAt}"></h3>
+    <section th:text="'Description: ' + ${post.text}"></section>
+    <section th:replace="fragments/image :: editPostImages(${post})"></section>
+    <section th:replace="fragments/image :: addPostImages(${post})"></section>
+</main>
+<footer th:replace="fragments/layout :: footer"></footer>
+</body>
+</html>

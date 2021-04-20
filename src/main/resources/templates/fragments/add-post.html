@@ -6,7 +6,7 @@
 </head>
 <body>
 <section th:fragment="addPost">
-    <form th:action="/posts">
+    <form action="/posts" method="post">
         <fieldset>
             <label for="edit-title">Post Title:</label>
             <input id="edit-title" type="text" name="title"></input>

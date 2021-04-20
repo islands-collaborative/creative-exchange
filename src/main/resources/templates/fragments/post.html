@@ -6,28 +6,27 @@
 
 <section th:fragment="list(posts)">
 <ul th:each="post : ${posts}">
-    <li th:replace="short(${post})"></li>
+    <li th:replace="fragments/post :: short(${post})"></li>
 </ul>
 </section>
 
 <section th:fragment="short(post)">
     <th:block th:if="${userPrincipal} and ${userPrincipal.id == post.author.id}">
-        <th:block th:replace="usersOwnShort(${post})"></th:block>
+        <th:block th:replace="fragments/post :: usersOwnShort(${post})"></th:block>
     </th:block>
     <th:block th:if="${userPrincipal} and ${userPrincipal.id != post.author.id}">
-        <th:block th:replace="loggedInShort(${post})"></th:block>
+        <th:block th:replace="fragments/post :: loggedInShort(${post})"></th:block>
     </th:block>
     <th:block th:if="${userPrincipal == null}">
-        <th:block th:replace="notLoggedInShort(${post})"></th:block>
+        <th:block th:replace="fragments/post :: notLoggedInShort(${post})"></th:block>
     </th:block>
 </section>
-
 
 <th:block th:fragment="usersOwnShort(post)">
     <a th:href="'/posts/' + ${post.id}">
         <h2 th:text="${post.title}"></h2>
     </a>
-    <p th:text="${post.description}"></p>
+    <p th:text="${post.text}"></p>
     <nav>
         <ul>
             <li>Edit post</li>
@@ -39,7 +38,7 @@
     <a th:href="'/posts/' + ${post.id}">
         <h2 th:text="${post.title}"></h2>
     </a>
-    <p th:text="${post.description}"></p>
+    <p th:text="${post.text}"></p>
 </th:block>
 
 <th:block th:fragment="notLoggedInShort(post)">
