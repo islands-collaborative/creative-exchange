@@ -1,5 +1,6 @@
 package com.islandcollaborative.creativeexchange.models;
 
+import com.islandcollaborative.creativeexchange.services.MessageService;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -99,37 +101,22 @@ public class AppUser implements UserDetails {
      * Returns a list of the most recent message from each thread for this user.
      */
     public List<Message> getThreads() {
-        //group by the user messages are with and retrieve the most recent message.
-        Map<AppUser, Message> mostRecentSent = sentMessages.stream()
-                .collect(Collectors.toMap(Message::getRecipient, Function.identity(),
-                        BinaryOperator.maxBy(Comparator.comparing(Message::getCreatedAt))));
-
-        Map<AppUser, Message> mostRecentReceived = receivedMessages.stream()
-                .collect(Collectors.toMap(Message::getSender, Function.identity(),
-                        BinaryOperator.maxBy(Comparator.comparing(Message::getCreatedAt))));
-
-        //group the too maps and sort into list.
-        List<Message> result = new ArrayList<>(Stream.of(mostRecentSent, mostRecentReceived)
-                .flatMap(map -> map.entrySet().stream())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> {
-                    if (v1.getCreatedAt().compareTo(v2.getCreatedAt()) > 0) return v1;
-                    return v2;
-                })).values());
-
-        Comparator<Message> compareByCreatedTime = (Message v1, Message v2) -> v2.getCreatedAt().compareTo(v1.getCreatedAt());
-        Collections.sort(result, compareByCreatedTime);
-
-        return result;
+        return MessageService.getThreads(sentMessages, receivedMessages);
     }
 
     /**
-     * @param ThreadWithId Id of related user.
+     * @param threadWithId Id of related user.
      * @return List<Message>
      * <p>
      * Gets a list of messages to represent the thread with a single other user.
      */
-    public List<Message> getMessageThread(Long ThreadWithId) {
-        //todo
+    public List<Message> getMessageThread(Long threadWithId) {
+        Comparator<Message> compareByCreatedTime = (Message v1, Message v2) -> v2.getCreatedAt().compareTo(v1.getCreatedAt());
+        List<Message> messages = Stream.concat(
+                sentMessages.stream().filter(p -> p.getRecipient().getId() == threadWithId),
+                receivedMessages.stream().filter(p -> p.getSender().getId() == threadWithId)
+        ).sorted(compareByCreatedTime).collect(Collectors.toList());
+
         return sentMessages;
     }
 
