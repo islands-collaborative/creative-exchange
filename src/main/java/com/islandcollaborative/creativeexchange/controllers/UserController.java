@@ -7,10 +7,7 @@ import com.islandcollaborative.creativeexchange.services.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -37,13 +34,11 @@ public class UserController {
      * Serves a view of the creators that are showcasing their profiles.
      */
     @GetMapping("/discover")
-    public String getUsers() {
-        List<AppUser> allUsers = appUserRepository.findAll();
+    public String getUsers(Model m) {
+        List<AppUser> creatorUsers = appUserRepository.findByIsCreatorTrue();
+        m.addAttribute("users", creatorUsers);
 //        to do: finish creator logic and add to discover page
-        for (int i = 0; i < allUsers.size(); i++) {
-            AppUser user = allUsers.get(i);
-//            if (user.getCreator() == true) creators.add(user);
-        }
+
         return "discover";
     }
 
@@ -82,6 +77,16 @@ public class UserController {
      * Allows a user to edit the details of their own profile, including changing their bio,
      * information, linked accounts. Redirects to /profile.
      */
+    @PostMapping("/profile/is-creator")
+    public RedirectView updateCreator (HttpServletRequest request){
+        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+        if (userPrincipal.getCreator() == null || userPrincipal.getCreator() == false) userPrincipal.setCreator(true);
+        else userPrincipal.setCreator(false);
+        appUserRepository.save(userPrincipal);
+        return new RedirectView("profile");
+
+    }
+
     @PutMapping("/profile")
     public RedirectView updateProfile(String displayName,
                                       String bio,
@@ -89,11 +94,11 @@ public class UserController {
                                       Boolean isCreator,
                                       HttpServletRequest request) throws IOException {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        if (bio != null) userPrincipal.setBio(bio);
-        if (displayName != null) userPrincipal.setDisplayName(displayName);
-        if (isCreator != null) userPrincipal.setCreator(isCreator);
-        if (blurb != null) userPrincipal.setBlurb(blurb);
-
+        if (bio != null || bio.isEmpty()) userPrincipal.setBio(bio);
+        if (displayName != null || displayName.isEmpty()) userPrincipal.setDisplayName(displayName);
+//        if (isCreator != null ) userPrincipal.setCreator(isCreator);
+        if (blurb != null || blurb.isEmpty()) userPrincipal.setBlurb(blurb);
+        appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }
 
@@ -106,4 +111,5 @@ public class UserController {
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }
+
 }

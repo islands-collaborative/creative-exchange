@@ -66,7 +66,7 @@ public class AuthController {
 
 //      ================ Create User =============
 
-        AppUser user = new AppUser(username, passwordEncoder.encode(password), displayName, isCreator);
+        AppUser user = new AppUser(username, passwordEncoder.encode(password), displayName);
         appUserRepository.save(user);
 
 //      ============== Signed in User ============
