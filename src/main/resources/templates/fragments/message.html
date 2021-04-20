@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<section th:fragment="inboxToView(message)">
+    <div>
+        <li th:text="'To: ' + ${message.recipient.displayName}"></li>
+        <li th:text="'Sent: ' + ${message.createdAt}"></li>
+        <li th:text="${message.message}"></li>
+    </div>
+</section>
+
+<section th:fragment="inboxFromView(message)">
+    <div>
+        <li th:text="'From: ' + ${message.sender.displayName}"></li>
+        <li th:text="'Sent: ' + ${message.createdAt}"></li>
+        <li th:text="${message.message}"></li>
+    </div>
+</section>
+
+<section th:fragment="threadToView(message)">
+    <div>
+        <li th:text="'To: ' + ${message.recipient.displayName}"></li>
+        <li th:text="'Sent: ' + ${message.createdAt}"></li>
+        <li th:text="${message.message}"></li>
+    </div>
+</section>
+
+<section th:fragment="threadFromView(message)">
+    <div>
+        <li th:text="'From: ' + ${message.sender.displayName}"></li>
+        <li th:text="'Sent: ' + ${message.createdAt}"></li>
+        <li th:text="${message.message}"></li>
+    </div>
+</section>
+
+<section th:fragment="inbox(message)">
+    <th:block th:if="${userPrincipal} and ${userPrincipal.id == message.sender.id}">
+        <th:block th:replace="fragments/message :: inboxFromView(${message})"></th:block>
+    </th:block>
+    <th:block th:if="${userPrincipal} and ${userPrincipal.id == message.recipient.id}">
+        <th:block th:replace="fragments/message :: inboxFromView(${message})"></th:block>
+    </th:block>
+    <th:block th:if="${userPrincipal == null}">
+        <th:block th:replace="fragments/message :: notLoggedInShort(${post})"></th:block>
+    </th:block>
+</section>
+
+<section th:fragment="thread(message)">
+    <th:block th:if="${userPrincipal} and ${userPrincipal.id == message.sender.id}">
+        <th:block th:replace="fragments/message :: threadToView(${message})"></th:block>
+    </th:block>
+    <th:block th:if="${userPrincipal} and ${userPrincipal.id == message.recipient.id}">
+        <th:block th:replace="fragments/message :: threadFromView(${message})"></th:block>
+    </th:block>
+    <th:block th:if="${userPrincipal == null}">
+        <th:block th:replace="fragments/message :: notLoggedInShort(${post})"></th:block>
+    </th:block>
+</section>
+
+<section th:fragment="inboxList(messages)">
+    <ul th:each="message : ${messages}">
+        <li th:replace="fragments/message :: inbox(${message})"></li>
+    </ul>
+</section>
+
+<section th:fragment="threadList(messages)">
+    <ul th:each="message : ${messages}">
+        <li th:replace="fragments/message :: inbox(${message})"></li>
+    </ul>
+</section>
+
+</body>
+</html>
