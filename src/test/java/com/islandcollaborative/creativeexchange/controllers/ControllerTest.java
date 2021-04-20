@@ -43,7 +43,7 @@ public class ControllerTest {
 
         for (String url: pages) {
             mockMvc.perform(get(url))
-                    .andExpect(content().string(containsString("<h1>CreativExchange</h1>")))
+                    .andExpect(content().string(containsString("<li class=\"nav-item btn btn-outline-dark\"><a class=\"nav-link active\" href=\"/\">Home</a></li>")))
                     .andExpect(status().isOk());
         }
 
@@ -65,13 +65,13 @@ public class ControllerTest {
 
         for (String url: pages) {
             mockMvc.perform(get(url))
-                    .andExpect(content().string(containsString("<h1>CreativExchange</h1>")))
+                    .andExpect(content().string(containsString("<li class=\"nav-item btn btn-outline-dark\"><a class=\"nav-link active\" href=\"/\">Home</a></li>")))
                     .andExpect(status().isOk());
         }
 
         for (String url: pagesRequiringAuth) {
             mockMvc.perform(get(url))
-                    .andExpect(content().string(containsString("<h1>CreativExchange</h1>")))
+                    .andExpect(content().string(containsString("<li class=\"nav-item btn btn-outline-dark\"><a class=\"nav-link active\" href=\"/\">Home</a></li>")))
                     .andExpect(status().isOk());
         }
     }
