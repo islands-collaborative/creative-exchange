@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 public class AppUser implements UserDetails {
@@ -23,11 +27,11 @@ public class AppUser implements UserDetails {
     //TODO Picture
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Message> sentMessages;
+    List<Message> sentMessages = new ArrayList<>();
     @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Message> receivedMessages;
+    List<Message> receivedMessages = new ArrayList<>();
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Post> posts;
+    List<Post> posts = new ArrayList<>();
 
     //TODO follow another user
 
@@ -59,6 +63,10 @@ public class AppUser implements UserDetails {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -81,26 +89,45 @@ public class AppUser implements UserDetails {
 
     /**
      * @return List<Message>
-     *
+     * <p>
      * Returns a list of the most recent message from each thread for this user.
      */
     public List<Message> getThreads() {
-        //todo
-        return sentMessages;
-    }
+        //group by the user messages are with and retrieve the most recent message.
+        Map<AppUser, Message> mostRecentSent = sentMessages.stream()
+                .collect(Collectors.toMap(Message::getRecipient, Function.identity(),
+                        BinaryOperator.maxBy(Comparator.comparing(Message::getCreatedAt))));
 
-    public List<Message> getSentMessages() {
-        return sentMessages;
+        Map<AppUser, Message> mostRecentReceived = receivedMessages.stream()
+                .collect(Collectors.toMap(Message::getSender, Function.identity(),
+                        BinaryOperator.maxBy(Comparator.comparing(Message::getCreatedAt))));
+
+        //group the too maps and sort into list.
+        List<Message> result = new ArrayList<>(Stream.of(mostRecentSent, mostRecentReceived)
+                .flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> {
+                    if (v1.getCreatedAt().compareTo(v2.getCreatedAt()) > 0) return v1;
+                    return v2;
+                })).values());
+
+        Comparator<Message> compareByCreatedTime = (Message v1, Message v2) -> v2.getCreatedAt().compareTo(v1.getCreatedAt());
+        Collections.sort(result, compareByCreatedTime);
+
+        return result;
     }
 
     /**
      * @param ThreadWithId Id of related user.
      * @return List<Message>
-     *
+     * <p>
      * Gets a list of messages to represent the thread with a single other user.
      */
     public List<Message> getMessageThread(Long ThreadWithId) {
         //todo
+        return sentMessages;
+    }
+
+    public List<Message> getSentMessages() {
         return sentMessages;
     }
 
@@ -112,23 +139,6 @@ public class AppUser implements UserDetails {
         return posts;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public void setCreator(Boolean creator) {
-        isCreator = creator;
-    }
-
-
     public long getId() {
         return id;
     }
@@ -137,11 +147,35 @@ public class AppUser implements UserDetails {
         return displayName;
     }
 
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
     public String getBio() {
         return bio;
     }
 
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
     public Boolean getCreator() {
         return isCreator;
+    }
+
+    public void setCreator(Boolean creator) {
+        isCreator = creator;
+    }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", bio='" + bio + '\'' +
+                ", isCreator=" + isCreator +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

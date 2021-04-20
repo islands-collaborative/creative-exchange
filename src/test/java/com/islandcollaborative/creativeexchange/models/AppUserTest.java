@@ -22,10 +22,10 @@ class AppUserTest {
         user1.getSentMessages().add(final2);
         Thread.sleep(1); // Java will be too fast and insert al the messages at once if this isn't used.
         Message final3 = new Message(user3, user1, "newest", LocalDateTime.now());
-        user1.getSentMessages().add(final3);
+        user1.getReceivedMessages().add(final3);
 
         List<Message> result = user1.getThreads();
-        Message[] expected = {final2, final3};
-//        assertArrayEquals(expected, result.toArray(new Character[result.size()]));
+        Message[] expected = {final3, final2};
+        assertArrayEquals(expected, result.toArray(new Message[result.size()]));
     }
 }
