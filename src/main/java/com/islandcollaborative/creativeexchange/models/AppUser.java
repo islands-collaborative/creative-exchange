@@ -149,14 +149,16 @@ public class AppUser implements UserDetails {
         return isCreator;
     }
 
-    public String getImageFilename() { return imageFilename; }
+    public void setCreator(Boolean creator) {
+        isCreator = creator;
+    }
+
+    public String getImageFilename() {
+        return imageFilename;
+    }
 
     public void setImageFilename(String filename) {
         imageFilename = filename;
-    }
-
-    public void setCreator(Boolean creator) {
-        isCreator = creator;
     }
 
     @Override
