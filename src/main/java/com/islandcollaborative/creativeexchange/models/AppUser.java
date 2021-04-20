@@ -105,13 +105,14 @@ public class AppUser implements UserDetails {
     }
 
     /**
-     * @param threadWithId Id of related user.
+     * @param user user with which to find related messages.
      * @return List<Message>
      * <p>
-     * Gets a list of messages to represent the thread with a single other user.
+     * Gets a list of messages to represent the thread with a single other user and sorts them by
+     * date sent. (newest is at index 0)
      */
-    public List<Message> getMessageThread(Long threadWithId) {
-        return MessageService.getMessageThread(threadWithId, sentMessages, receivedMessages);
+    public List<Message> getMessageThread(AppUser user) {
+        return MessageService.getMessageThread(user, sentMessages, receivedMessages);
     }
 
     public List<Message> getSentMessages() {

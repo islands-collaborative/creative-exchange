@@ -41,17 +41,15 @@ public class MessageService {
     }
 
     /**
-     * @param threadWithId Id of related user.
+     * @param user user to filter messages on.
      * @return List<Message>
      * <p>
-     * Gets a list of messages to represent the thread with a single other user.
+     * filters messages and sorts them by date sent. (newest is at index 0)
      */
-    public static List<Message> getMessageThread(Long threadWithId, List<Message> sentMessages, List<Message> receivedMessages) {
-        List<Message> messages = Stream.concat(
-                sentMessages.stream().filter(p -> p.getRecipient().getId() == threadWithId),
-                receivedMessages.stream().filter(p -> p.getSender().getId() == threadWithId)
+    public static List<Message> getMessageThread(AppUser user, List<Message> sentMessages, List<Message> receivedMessages) {
+        return Stream.concat(
+                sentMessages.stream().filter(p -> p.getRecipient() == user),
+                receivedMessages.stream().filter(p -> p.getSender() == user)
         ).sorted(compareByCreatedTime).collect(Collectors.toList());
-
-        return sentMessages;
     }
 }
