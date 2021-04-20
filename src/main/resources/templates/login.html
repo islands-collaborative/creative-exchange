@@ -3,19 +3,20 @@
 <head th:replace="fragments/head :: head('Login')">
 
 </head>
-<body>
+<body >
 <header th:replace="fragments/layout :: header"> </header>
-    <main>
-        <h1>Login</h1>
+    <main class="text-center">
+
         
         <form action="/login" method="post">
-        <label for="username">username</label>
-        <input type="text" name="username" required>
+            <h1 class="h3 mb-3 fw-normal">Login</h1>
+        <label class="floatingInput" for="username">username</label>
+        <input class="form-control"  type="text" name="username" required>
 
-        <label for="password">password</label>
-        <input type="password" name="password" required>
+        <label class="form-floating" for="password">password</label>
+        <input class="form-control" type="password" name="password" required>
 
-        <input type="submit" value="login">
+        <input class="w-100 btn btn-lg btn-primary" type="submit" value="login">
         </form>
     </main>
 <footer th:replace="fragments/layout :: footer"></footer>
