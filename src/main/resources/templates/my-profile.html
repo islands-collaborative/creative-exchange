@@ -17,8 +17,8 @@
                     <li class="lead" th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
                     <li class="lead" th:text="'Bio: ' + ${userPrincipal.bio}"></li>
                     <li class="lead" th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
-        <!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10004;</li>-->
-        <!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10006;</li>-->
+                    <li th:if="${userPrincipal.creator}">Creator: &#10004;</li>
+                    <li th:unless="${userPrincipal.creator}">Creator: &#10006;</li>
         <!--            to do: isCreator logic. Not sure why above isn't working-->
 
                 </ul>
