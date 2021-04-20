@@ -87,7 +87,6 @@ public class UserController {
                                       String bio,
                                       String blurb,
                                       Boolean isCreator,
-                                      @RequestParam("image") MultipartFile multipartFile,
                                       HttpServletRequest request) throws IOException {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
         if (bio != null) userPrincipal.setBio(bio);
@@ -95,6 +94,13 @@ public class UserController {
         if (isCreator != null) userPrincipal.setCreator(isCreator);
         if (blurb != null) userPrincipal.setBlurb(blurb);
 
+        return new RedirectView("profile");
+    }
+
+    @PutMapping("/profile/image")
+    public RedirectView updateProfile( @RequestParam("image") MultipartFile multipartFile,
+                                      HttpServletRequest request) throws IOException {
+        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
 
         appUserService.updateProfilePicture(userPrincipal, multipartFile);
         appUserRepository.save(userPrincipal);

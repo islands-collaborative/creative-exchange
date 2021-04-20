@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class MessageController {
@@ -49,8 +50,16 @@ public class MessageController {
      */
     @GetMapping("/users/{userId}/messages")
     public String getThread(@PathVariable long userId, HttpServletRequest request, Model m) {
+//        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+//        m.addAttribute("messages", userPrincipal.getMessageThread(appUserRepository.getOne(userId)));
+
+
+
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        m.addAttribute("messages", userPrincipal.getMessageThread(appUserRepository.getOne(userId)));
+        AppUser userSubject = appUserRepository.getOne(userId);
+
+        List<Message> thread = messageRepository.getAllMessages(userPrincipal.getId(), userSubject.getId());
+        m.addAttribute("messages", thread);
         return "thread";
     }
 
@@ -65,7 +74,10 @@ public class MessageController {
      * message thread at `/users/{userId}/messages`.
      */
     @PostMapping("/users/{userId}/messages")
-    public RedirectView sendMessage(@PathVariable("userId") long userId, HttpServletRequest request, Model m, String text) {
+    public RedirectView sendMessage(@PathVariable("userId") long userId,
+                                    HttpServletRequest request,
+                                    Model m,
+                                    String text) {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
         AppUser recipient = appUserRepository.getOne(userId);
         Message message = new Message(userPrincipal, recipient, text);
