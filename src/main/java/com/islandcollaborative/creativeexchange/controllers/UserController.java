@@ -52,8 +52,8 @@ public class UserController {
      */
     @GetMapping("/users/{userId}")
     public String getUserById(@PathVariable long userId, Model m) {
-        AppUser userPrincipal = appUserRepository.getOne(userId);
-        m.addAttribute("messages", userPrincipal);
+        AppUser user = appUserRepository.getOne(userId);
+        m.addAttribute("user", user);
         return "user-detail";
     }
 
@@ -77,15 +77,19 @@ public class UserController {
      * Allows a user to edit the details of their own profile, including changing their bio,
      * information, linked accounts. Redirects to /profile.
      */
+//  // to-do stretch goal refactor to put and delete routes to prevent undesired results
     @PostMapping("/profile/is-creator")
     public RedirectView updateCreator (HttpServletRequest request){
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
         if (userPrincipal.getCreator() == null || userPrincipal.getCreator() == false) userPrincipal.setCreator(true);
         else userPrincipal.setCreator(false);
+//        if (userPrincipal.getCreator() == null)
+//        userPrincipal.setCreator(!userPrincipal.getCreator());
         appUserRepository.save(userPrincipal);
-        return new RedirectView("profile");
+        return new RedirectView("/profile");
 
     }
+//
 
     @PutMapping("/profile")
     public RedirectView updateProfile(String displayName,
@@ -110,6 +114,30 @@ public class UserController {
         appUserService.updateProfilePicture(userPrincipal, multipartFile);
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
+    }
+//    to do: make follow redirect to current view
+    @PutMapping("/follow/{userId}")
+    public RedirectView followUser (HttpServletRequest request, @PathVariable long userId){
+
+        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+        AppUser userSubject = appUserRepository.findById(userId).get();
+        userPrincipal.addFollowing(userSubject);
+        userPrincipal.getFollowed().add(userSubject);
+        appUserRepository.save(userPrincipal);
+
+        return new RedirectView("/users/" + userId);
+
+    }
+    @DeleteMapping("/follow/{id}")
+    public RedirectView unfollowUser (HttpServletRequest request, @PathVariable long id){
+
+        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+        AppUser user = appUserRepository.findById(id).get();
+        user.removeFollowing(userPrincipal);
+        appUserRepository.save(user);
+
+        return new RedirectView("/users/" + id);
+
     }
 
 }

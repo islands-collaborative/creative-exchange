@@ -33,15 +33,7 @@ public class AppUser implements UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Post> posts = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    @JoinTable(
-            name = "following_relations",
-            joinColumns = {@JoinColumn(name = "followers")},
-            inverseJoinColumns = {@JoinColumn(name = "followed")}
-    )
-    Set<AppUser> followers = new HashSet<>();
-    @ManyToMany(mappedBy = "followers")
-    Set<AppUser> followed = new HashSet<>();
+
 
     @CreationTimestamp
     LocalDateTime createdAt;
@@ -124,9 +116,31 @@ public class AppUser implements UserDetails {
     public List<Message> getMessageThread(AppUser user) {
         return MessageService.getMessageThread(user, this);
     }
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(
+            name = "following_relations",
+            joinColumns = {@JoinColumn(name = "follow_from")},
+            inverseJoinColumns = {@JoinColumn(name = "follow_to")}
+    )
+//     the people you follow
+    Set<AppUser> followed = new HashSet<>();
+    @ManyToMany(mappedBy = "followed")
+    Set<AppUser> followers = new HashSet<>();
+//    the people following you
+    public Set<AppUser> getFollowers() {
+        return followers;
+    }
+
+    // the people you follow
+    public Set<AppUser> getFollowed() {
+        return followed;
+    }
 
     public void addFollowing(AppUser userToFollow){
         followed.add(userToFollow);
+    }
+    public void removeFollowing(AppUser user){
+        followed.remove(user);
     }
 
     public List<Message> getSentMessages() {
