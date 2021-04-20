@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="fragments/head :: head('Discover')">
 <body>
+<header th:replace="fragments/layout :: header"> </header>
 
+<section th:each=" user: ${users)">
+    <ul>
+    <li th:text="'Name: ' + ${user.displayName}"></li>
+        <li th:text="'Blurb: ' + ${user.blurb}"></li>
+<!--        profile pic-->
+    </ul>
+</section>
 </body>
 </html>
