@@ -7,12 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class AppUser implements UserDetails {
@@ -42,14 +39,6 @@ public class AppUser implements UserDetails {
     @CreationTimestamp
     LocalDateTime createdAt;
 
-    public String getBlurb() {
-        return blurb;
-    }
-
-    public void setBlurb(String blurb) {
-        this.blurb = blurb;
-    }
-
     public AppUser() {
     }
 
@@ -58,6 +47,14 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.displayName = displayName;
         this.isCreator = isCreator;
+    }
+
+    public String getBlurb() {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
     }
 
     @Override
