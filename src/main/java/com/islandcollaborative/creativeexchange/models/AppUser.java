@@ -2,6 +2,7 @@ package com.islandcollaborative.creativeexchange.models;
 
 import com.islandcollaborative.creativeexchange.services.MessageService;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -98,7 +99,7 @@ public class AppUser implements UserDetails {
      * Returns a list of the most recent message from each thread for this user.
      */
     public List<Message> getThreads() {
-        return MessageService.getThreads(sentMessages, receivedMessages);
+        return MessageService.getThreads(this);
     }
 
     /**
@@ -109,7 +110,7 @@ public class AppUser implements UserDetails {
      * date sent. (newest is at index 0)
      */
     public List<Message> getMessageThread(AppUser user) {
-        return MessageService.getMessageThread(user, sentMessages, receivedMessages);
+        return MessageService.getMessageThread(user, this);
     }
 
     public List<Message> getSentMessages() {
