@@ -14,12 +14,12 @@
 
 </nav>
 <nav th:fragment="loggedIn">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/profile">Profile</a></li>
-        <li><a href="/feed">Feed</a></li>
-        <li><a href="/discover">Discover</a></li>
-        <li><a href="/about">About Us</a></li>
+    <ul class="d-flex justify-content-end">
+        <li class="btn btn-sm btn-outline-secondary"><a href="/">Home</a></li>
+        <li class="li li-outline-dark"><a href="/profile">Profile</a></li>
+        <li class="btn btn-outline-dark"><a href="/feed">Feed</a></li>
+        <li class="btn btn-outline-dark"><a href="/discover">Discover</a></li>
+        <li class="btn btn-outline-dark"><a href="/about">About Us</a></li>
 
 
     <li th:text="${userPrincipal.username}"></li>
@@ -28,11 +28,11 @@
 </nav>
 
 <nav th:fragment="loggedOut">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/signup">Signup</a></li>
-        <li><a href="/about">About Us</a></li>
+    <ul class="nav nav-pills justify-content-end">
+        <li class="nav-item btn btn-outline-dark"><a class="nav-link active" href="/">Home</a></li>
+        <li class="nav-item btn btn-outline-dark"><a class="nav-link active" href="/login">Login</a></li>
+        <li class="nav-item btn btn-outline-dark"><a class="nav-link active" href="/signup">Signup</a></li>
+        <li class="nav-item btn btn-outline-dark"><a class="nav-link active" href="/about">About Us</a></li>
     </ul>
 </nav>
 </body>
