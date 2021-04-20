@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head :: head('Signup')">
 </head>
 <body>
@@ -15,6 +15,9 @@
 
         <input type="submit" value="signup">
     </form>
+    <div th:if="${errorMessage}" class="alert">
+        <th:block th:text="${errorMessage}"></th:block>
+    </div>
 </main>
 <footer th:replace="fragments/layout :: footer"> </footer>
 </body>
