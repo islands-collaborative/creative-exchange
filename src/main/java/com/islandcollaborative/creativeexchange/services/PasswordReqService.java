@@ -7,14 +7,17 @@ import java.util.Map;
 @Service
 public class PasswordReqService {
     public final Map<String, String> errorText = Map.ofEntries(
-            Map.entry("password_length", "Password must be at list 6 characters"),
-            Map.entry("password_invalid", "Password must contain a lowercase letter, an uppercase letter, and a number")
+            Map.entry("password_length", "Password must be at least 6 characters"),
+            Map.entry("password_invalid", "Password must contain a number")
     );
 
     public String validate(String password) {
         if (password.length() < 6) return "password_length";
-        if (!password.matches(".*[a-zA-Z].*") && password.matches(".*[0-9].*"))
-            return "password_invalid";
+        boolean hasNumber = password.matches(".*[0-9]*.");
+        boolean hasLowercase = password.matches(".*[a-z]*.");
+        boolean hasUppercase = password.matches(".*[A-Z]*.");
+
+        if (!hasNumber || !hasLowercase) return "password_invalid";
         else return null;
     }
 }

@@ -2,7 +2,6 @@ package com.islandcollaborative.creativeexchange.models;
 
 import com.islandcollaborative.creativeexchange.services.MessageService;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,6 +25,7 @@ public class AppUser implements UserDetails {
     String bio;
     String blurb;
     Boolean isCreator;
+    String imageFilename;
     //TODO Picture
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -147,6 +147,12 @@ public class AppUser implements UserDetails {
 
     public Boolean getCreator() {
         return isCreator;
+    }
+
+    public String getImageFilename() { return imageFilename; }
+
+    public void setImageFilename(String filename) {
+        imageFilename = filename;
     }
 
     public void setCreator(Boolean creator) {

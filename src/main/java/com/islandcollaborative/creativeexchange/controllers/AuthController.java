@@ -58,8 +58,7 @@ public class AuthController {
                                    String displayName,
                                    Boolean isCreator,
                                    HttpServletRequest request) {
-
-        if (appUserRepository.findByUsername(username) != null)
+        if (appUserRepository.existsByUsername(username))
             return new RedirectView("/signup?error=username_exists");
 
         String passwordError = passwordReqService.validate(password);
@@ -76,6 +75,6 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new RedirectView("/my-profile");
+        return new RedirectView("/profile");
     }
 }
