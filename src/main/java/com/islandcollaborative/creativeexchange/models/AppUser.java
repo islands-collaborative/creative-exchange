@@ -111,13 +111,7 @@ public class AppUser implements UserDetails {
      * Gets a list of messages to represent the thread with a single other user.
      */
     public List<Message> getMessageThread(Long threadWithId) {
-        Comparator<Message> compareByCreatedTime = (Message v1, Message v2) -> v2.getCreatedAt().compareTo(v1.getCreatedAt());
-        List<Message> messages = Stream.concat(
-                sentMessages.stream().filter(p -> p.getRecipient().getId() == threadWithId),
-                receivedMessages.stream().filter(p -> p.getSender().getId() == threadWithId)
-        ).sorted(compareByCreatedTime).collect(Collectors.toList());
-
-        return sentMessages;
+        return MessageService.getMessageThread(threadWithId, sentMessages, receivedMessages);
     }
 
     public List<Message> getSentMessages() {
