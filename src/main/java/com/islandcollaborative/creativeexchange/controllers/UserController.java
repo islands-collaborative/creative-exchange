@@ -37,13 +37,11 @@ public class UserController {
      * Serves a view of the creators that are showcasing their profiles.
      */
     @GetMapping("/discover")
-    public String getUsers() {
-        List<AppUser> allUsers = appUserRepository.findAll();
+    public String getUsers(Model m) {
+        List<AppUser> creatorUsers = appUserRepository.findByIsCreatorTrue();
+        m.addAttribute("users", creatorUsers);
 //        to do: finish creator logic and add to discover page
-        for (int i = 0; i < allUsers.size(); i++) {
-            AppUser user = allUsers.get(i);
-//            if (user.getCreator() == true) creators.add(user);
-        }
+
         return "discover";
     }
 
@@ -100,4 +98,5 @@ public class UserController {
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }
+
 }

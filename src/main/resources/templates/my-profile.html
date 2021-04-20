@@ -13,8 +13,11 @@
             <li th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
             <li th:text="'Bio: ' + ${userPrincipal.bio}"></li>
             <li th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
+<!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10004;</li>-->
+<!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10006;</li>-->
+<!--            to do: isCreator logic. Not sure why above isn't working-->
         </ul>
-        <form action="/profile?_method=PUT" method="post">
+        <form action="/profile?_method=PUT" method="post" enctype="multipart/form-data">
             <fieldset>
                 <label for="input-display-name">Display Name</label>
                 <input id="input-display-name" type="text" name="displayName">

@@ -21,7 +21,7 @@ public class AppUser implements UserDetails {
     @Column(columnDefinition = "TEXT")
     String bio;
     String blurb;
-    Boolean isCreator;
+    Boolean isCreator = false;
     String imageFilename;
     //TODO Picture
 
