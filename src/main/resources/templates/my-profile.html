@@ -13,16 +13,23 @@
             <li th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
             <li th:text="'Bio: ' + ${userPrincipal.bio}"></li>
             <li th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
+<!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10004;</li>-->
+<!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10006;</li>-->
+<!--            to do: isCreator logic. Not sure why above isn't working-->
         </ul>
-        <form action="/profile?_method=PUT" method="post">
+        <form action="/profile/is-creator" method="post" >
+            <fieldset>
+                <label>Click to toggle creator mode</label>
+
+            </fieldset>
+            <input type="submit" value="Update">
+        </form>
+        <form action="/profile?_method=PUT" method="post" enctype="multipart/form-data">
             <fieldset>
                 <label for="input-display-name">Display Name</label>
                 <input id="input-display-name" type="text" name="displayName">
             </fieldset>
-            <fieldset>
-                <label for="checkbox-is-creator">Is Creator?</label>
-                <input id="checkbox-is-creator" type="checkbox" name="isCreator">
-            </fieldset>
+
             <fieldset>
                 <label for="input-blurb">Blurb</label>
                 <input id="input-blurb" type="text" name="blurb">
@@ -31,7 +38,7 @@
                 <label for="textarea-bio">Bio</label>
                 <textarea name="bio" id="textarea-bio" cols="30" rows="10"></textarea>
             </fieldset>
-            <input type="submit" value="post">
+            <input type="submit" value="Update">
         </form>
 
         <form action="/profile/image?_method=PUT" method="post" enctype="multipart/form-data">

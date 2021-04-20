@@ -4,10 +4,11 @@
 <body>
 <header th:replace="fragments/layout :: header"> </header>
 
-<section th:each=" user: ${users)">
+<section th:each=" user: ${users}">
     <ul>
     <li th:text="'Name: ' + ${user.displayName}"></li>
         <li th:text="'Blurb: ' + ${user.blurb}"></li>
+
 <!--        profile pic-->
     </ul>
 </section>

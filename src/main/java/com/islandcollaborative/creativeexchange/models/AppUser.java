@@ -22,7 +22,7 @@ public class AppUser implements UserDetails {
     @Column(columnDefinition = "TEXT")
     String bio;
     String blurb;
-    Boolean isCreator;
+    Boolean isCreator = false;
     String imageFilename;
     //TODO Picture
 
@@ -54,6 +54,12 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.displayName = displayName;
         this.isCreator = isCreator;
+    }
+    public AppUser(String username, String password, String displayName) {
+        this.username = username;
+        this.password = password;
+        this.displayName = displayName;
+
     }
 
     public String getBlurb() {
