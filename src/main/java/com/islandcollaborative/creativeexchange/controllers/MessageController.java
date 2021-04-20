@@ -50,7 +50,7 @@ public class MessageController {
     @GetMapping("/users/{userId}/messages")
     public String getThread(@PathVariable long userId, HttpServletRequest request, Model m) {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        m.addAttribute("messages", userPrincipal.getMessageThread(userId));
+        m.addAttribute("messages", userPrincipal.getMessageThread(appUserRepository.getOne(userId)));
         return "thread";
     }
 
