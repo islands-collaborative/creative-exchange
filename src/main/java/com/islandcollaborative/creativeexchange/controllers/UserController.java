@@ -60,8 +60,6 @@ public class UserController {
      */
     @GetMapping("/profile")
     public String getProfile(HttpServletRequest request, Model m) {
-        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        m.addAttribute("messages", userPrincipal);
         return "my-profile";
     }
 
