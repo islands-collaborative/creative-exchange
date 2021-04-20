@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AuthController {
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -75,6 +76,6 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new RedirectView("/users");
+        return new RedirectView("/my-profile");
     }
 }

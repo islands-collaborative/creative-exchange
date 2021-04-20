@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -26,6 +27,12 @@ public class UserController {
      */
     @GetMapping("/discover")
     public String getUsers() {
+        List<AppUser> allUsers = appUserRepository.findAll();
+//        to do: finish creator logic and add to discover page
+        for (int i = 0; i < allUsers.size(); i++) {
+            AppUser user = allUsers.get(i);
+//            if (user.getCreator() == true) creators.add(user);
+        }
         return "discover";
     }
 
@@ -53,6 +60,8 @@ public class UserController {
      */
     @GetMapping("/profile")
     public String getProfile(HttpServletRequest request, Model m) {
+        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+        m.addAttribute("messages", userPrincipal);
         return "my-profile";
     }
 
@@ -67,6 +76,7 @@ public class UserController {
     @PutMapping("/profile")
     public RedirectView updateProfile( String displayName,
                                       String bio,
+                                      String blurb,
                                       Boolean isCreator,
                                       HttpServletRequest request,
                                       Model m) {
@@ -74,6 +84,7 @@ public class UserController {
         if (bio != null) userPrincipal.setBio(bio);
         if (displayName != null) userPrincipal.setDisplayName(displayName);
         if (isCreator != null) userPrincipal.setCreator(isCreator);
+        if (blurb != null) userPrincipal.setBlurb(blurb);
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }
