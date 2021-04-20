@@ -1,12 +1,15 @@
 package com.islandcollaborative.creativeexchange.models;
 
+import com.islandcollaborative.creativeexchange.services.MessageService;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class AppUser implements UserDetails {
@@ -26,24 +29,16 @@ public class AppUser implements UserDetails {
     //TODO Picture
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Message> sentMessages;
+    List<Message> sentMessages = new ArrayList<>();
     @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Message> receivedMessages;
+    List<Message> receivedMessages = new ArrayList<>();
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Post> posts;
+    List<Post> posts = new ArrayList<>();
 
     //TODO follow another user
 
     @CreationTimestamp
     LocalDateTime createdAt;
-
-    public String getBlurb() {
-        return blurb;
-    }
-
-    public void setBlurb(String blurb) {
-        this.blurb = blurb;
-    }
 
     public AppUser() {
     }
@@ -53,6 +48,14 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.displayName = displayName;
         this.isCreator = isCreator;
+    }
+
+    public String getBlurb() {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
     }
 
     @Override
@@ -92,26 +95,25 @@ public class AppUser implements UserDetails {
 
     /**
      * @return List<Message>
-     *
+     * <p>
      * Returns a list of the most recent message from each thread for this user.
      */
     public List<Message> getThreads() {
-        //todo
-        return sentMessages;
-    }
-
-    public List<Message> getSentMessages() {
-        return sentMessages;
+        return MessageService.getThreads(this);
     }
 
     /**
-     * @param ThreadWithId Id of related user.
+     * @param user user with which to find related messages.
      * @return List<Message>
-     *
-     * Gets a list of messages to represent the thread with a single other user.
+     * <p>
+     * Gets a list of messages to represent the thread with a single other user and sorts them by
+     * date sent. (newest is at index 0)
      */
-    public List<Message> getMessageThread(Long ThreadWithId) {
-        //todo
+    public List<Message> getMessageThread(AppUser user) {
+        return MessageService.getMessageThread(user, this);
+    }
+
+    public List<Message> getSentMessages() {
         return sentMessages;
     }
 
@@ -123,23 +125,6 @@ public class AppUser implements UserDetails {
         return posts;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public void setCreator(Boolean creator) {
-        isCreator = creator;
-    }
-
-
     public long getId() {
         return id;
     }
@@ -148,17 +133,43 @@ public class AppUser implements UserDetails {
         return displayName;
     }
 
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
     public String getBio() {
         return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public Boolean getCreator() {
         return isCreator;
     }
 
-    public String getImageFilename() { return imageFilename; }
+    public void setCreator(Boolean creator) {
+        isCreator = creator;
+    }
+
+    public String getImageFilename() {
+        return imageFilename;
+    }
 
     public void setImageFilename(String filename) {
         imageFilename = filename;
+    }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", bio='" + bio + '\'' +
+                ", isCreator=" + isCreator +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
