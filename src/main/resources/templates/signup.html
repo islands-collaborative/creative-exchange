@@ -6,17 +6,20 @@
 <header th:replace="fragments/layout :: header"> </header>
 <main class="text-center">
     <h1 class="h3 mb-3 fw-normal">Sign up</h1>
-    <form action="/signup" method="post">
+    <div class="col-10 mx-auto col-lg-5">
+        <form class="p-5 border rounded-3 bg-light" action="/signup" method="post">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="username" type="text" name="username" required>
+                <label class="floatingInput" for="username">username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="password" type="password" name="password" required>
+                <label class="floatingInput" for="password">password</label>
+            </div>
+            <input class="w-100 btn btn-lg btn-primary" type="submit" value="signup">
+        </form>
+    </div>
 
-        <label class="floatingInput" for="username">username</label>
-        <input class="form-control" id="username" type="text" name="username" required>
-
-        <label class="floatingInput" for="password">password</label>
-        <input class="form-control" id="password" type="password" name="password" required>
-
-
-        <input class="w-100 btn btn-lg btn-primary" type="submit" value="signup">
-    </form>
     <div th:if="${errorMessage}" class="alert">
         <th:block th:text="${errorMessage}"></th:block>
     </div>
