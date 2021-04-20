@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -26,6 +27,12 @@ public class UserController {
      */
     @GetMapping("/discover")
     public String getUsers() {
+        List<AppUser> allUsers = appUserRepository.findAll();
+//        to do: finish creator logic and add to discover page
+        for (int i = 0; i < allUsers.size(); i++) {
+            AppUser user = allUsers.get(i);
+//            if (user.getCreator() == true) creators.add(user);
+        }
         return "discover";
     }
 
