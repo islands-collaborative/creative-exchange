@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="fragments/head :: head('User Details')">
 <body>
+<header th:replace="fragments/layout :: header"> </header>
+<ul>
+    <li th:text="'Name: ' + ${user.displayName}"></li>
+<li th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></li>
+    <li th:if="${user.bio}" th:text="'Bio: ' + ${user.bio}"></li>
+    <div th:replace="fragments/follow :: follow(${user}) "></div>
 
+
+
+
+
+<!--    profile picture-->
+</ul>
+
+<!-- to do list posts-->
 </body>
 </html>

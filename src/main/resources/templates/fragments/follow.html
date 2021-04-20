@@ -8,7 +8,7 @@
     <input type="submit" value="Unfollow">
   </form>
   </th:block>
-  <th:block th:if="${userPrincipal} and ${false == userPrincipal.followed.contains(user)}">
+  <th:block th:if="${userPrincipal} and ${false == user.followers.contains(userPrincipal)}">
     <form th:action="'/follow/' + ${user.id} + '?_method=put'" method="post">
       <input type="submit" value="Follow">
     </form>
