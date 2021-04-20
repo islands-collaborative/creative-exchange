@@ -49,6 +49,12 @@ public class AppUser implements UserDetails {
         this.displayName = displayName;
         this.isCreator = isCreator;
     }
+    public AppUser(String username, String password, String displayName) {
+        this.username = username;
+        this.password = password;
+        this.displayName = displayName;
+
+    }
 
     public String getBlurb() {
         return blurb;
