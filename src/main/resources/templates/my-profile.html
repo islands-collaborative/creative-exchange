@@ -7,49 +7,61 @@
 <header th:replace="fragments/layout :: header"> </header>
     <main>
         <h1>My Profile</h1>
-        <img th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
-        <ul>
-            <li th:text="'Username: ' + ${userPrincipal.username}"></li>
-            <li th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
-            <li th:text="'Bio: ' + ${userPrincipal.bio}"></li>
-            <li th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
-<!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10004;</li>-->
-<!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10006;</li>-->
-<!--            to do: isCreator logic. Not sure why above isn't working-->
-        </ul>
-        <form action="/profile/is-creator" method="post" >
-            <fieldset>
-                <label>Click to toggle creator mode</label>
+        <div class="row featurette">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img  class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
+                </div>
+                <ul class="col-md-7 order-md-2">
+                    <li class="featurette-heading" th:text="'Username: ' + ${userPrincipal.username}"></li>
+                    <li class="lead" th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
+                    <li class="lead" th:text="'Bio: ' + ${userPrincipal.bio}"></li>
+                    <li class="lead" th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
+        <!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10004;</li>-->
+        <!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10006;</li>-->
+        <!--            to do: isCreator logic. Not sure why above isn't working-->
 
-            </fieldset>
-            <input type="submit" value="Update">
-        </form>
-        <form action="/profile?_method=PUT" method="post" enctype="multipart/form-data">
-            <fieldset>
-                <label for="input-display-name">Display Name</label>
-                <input id="input-display-name" type="text" name="displayName">
-            </fieldset>
+                </ul>
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <div class="col-10 mx-auto col-lg-5">
+            <form class="mb-3 form-check form-switch" action="/profile/is-creator" method="post" >
+                <div >
+                    <fieldset>
+                        <input class="form-check-input" type="submit" value="">
+                        <label class=" form-check-label">Click to toggle creator mode</label>
+                    </fieldset>
+                </div>
+            </form>
+            <form class="p-5 border rounded-3 bg-light" action="/profile?_method=PUT" method="post" enctype="multipart/form-data">
+                <fieldset class="form-floating mb-3">
+                    <input class="form-control" id="input-display-name" type="text" name="displayName">
+                    <label class="floatingInput" for="input-display-name">Display Name</label>
+                </fieldset>
 
-            <fieldset>
-                <label for="input-blurb">Blurb</label>
-                <input id="input-blurb" type="text" name="blurb">
-            </fieldset>
-            <fieldset>
-                <label for="textarea-bio">Bio</label>
-                <textarea name="bio" id="textarea-bio" cols="30" rows="10"></textarea>
-            </fieldset>
-            <input type="submit" value="Update">
-        </form>
+                <fieldset class="form-floating mb-3">
+                    <input class="form-control" id="input-blurb" type="text" name="blurb">
+                    <label class="floatingInput" for="input-blurb">Blurb</label>
+                </fieldset>
+                <fieldset class="form-floating mb-3">
+                    <textarea class="form-control" name="bio" id="textarea-bio" cols="30" rows="10"></textarea>
+                    <label class="floatingInput" for="textarea-bio">Bio</label>
+                </fieldset>
+                <input type="submit" value="Update">
+            </form>
 
-        <form action="/profile/image?_method=PUT" method="post" enctype="multipart/form-data">
-            <fieldset>
-                <label for="image-upload">Profile picture</label>
-                <input name="image"
-                       id="image-upload"
-                       type="file" accept="image/*"></input>
-            </fieldset>
-            <input type="submit" value="Change Profile Image"></input>
-        </form>
+            <form action="/profile/image?_method=PUT" method="post" enctype="multipart/form-data">
+                <fieldset class="mb-3">
+                    <label for="image-upload">Profile picture</label>
+                    <input class="form-control form-control-sm"
+                            name="image"
+                           id="image-upload"
+                           type="file" accept="image/*"></input>
+                </fieldset>
+                <input type="submit" value="Change Profile Image"></input>
+            </form>
+        </div>
     </main>
 <footer th:replace="fragments/layout :: footer"></footer>
 

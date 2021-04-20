@@ -50,16 +50,16 @@ public class MessageController {
      */
     @GetMapping("/users/{userId}/messages")
     public String getThread(@PathVariable long userId, HttpServletRequest request, Model m) {
-//        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-//        m.addAttribute("messages", userPrincipal.getMessageThread(appUserRepository.getOne(userId)));
-
-
-
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        AppUser userSubject = appUserRepository.getOne(userId);
+        AppUser correspondent = appUserRepository.getOne(userId);
+        m.addAttribute("correspondent", correspondent);
+        m.addAttribute("messages", userPrincipal.getMessageThread(correspondent));
 
-        List<Message> thread = messageRepository.getAllMessages(userPrincipal.getId(), userSubject.getId());
-        m.addAttribute("messages", thread);
+//        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+//        AppUser userSubject = appUserRepository.getOne(userId);
+//
+//        List<Message> thread = messageRepository.getAllMessages(userPrincipal.getId(), userSubject.getId());
+//        m.addAttribute("messages", thread);
         return "thread";
     }
 
@@ -67,14 +67,14 @@ public class MessageController {
      * @param userId AppUser to send the message to.
      * @param text content of the message to be sent.
      * @return Redirects to "/users/{userId}/messages"
-     * Post /users/{userId}/messages
+     * Post /messages
      * Requires authentication
      *
      * Sends a message from the currently logged in user to the subject user. Redirects to the
      * message thread at `/users/{userId}/messages`.
      */
-    @PostMapping("/users/{userId}/messages")
-    public RedirectView sendMessage(@PathVariable("userId") long userId,
+    @PostMapping("/messages")
+    public RedirectView sendMessage(Long userId,
                                     HttpServletRequest request,
                                     Model m,
                                     String text) {
