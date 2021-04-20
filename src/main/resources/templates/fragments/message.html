@@ -7,6 +7,7 @@
         <li th:text="'To: ' + ${message.recipient.displayName}"></li>
         <li th:text="'Sent: ' + ${message.createdAt}"></li>
         <li th:text="${message.message}"></li>
+        <a th:href="'/users/' + ${message.recipient.id} + '/messages'"></a>
     </div>
 </section>
 
@@ -15,6 +16,7 @@
         <li th:text="'From: ' + ${message.sender.displayName}"></li>
         <li th:text="'Sent: ' + ${message.createdAt}"></li>
         <li th:text="${message.message}"></li>
+        <a th:href="'/users/' + ${message.sender.id} + '/messages'"></a>
     </div>
 </section>
 
