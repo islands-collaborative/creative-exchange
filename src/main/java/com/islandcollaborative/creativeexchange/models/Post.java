@@ -3,9 +3,8 @@ package com.islandcollaborative.creativeexchange.models;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 @Entity
 public class Post {
@@ -13,40 +12,40 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    @Column(columnDefinition = "TEXT")
-    String post;
+    String text;
     String title;
 
     @ManyToOne
     @JoinColumn(name = "app_user_id")
     AppUser author;
-
-    String imagePath;
-    /* @Column(columnDefinition = "")
-    List<String> imagePaths; */
-
+    @OneToMany(mappedBy = "post")
+    List<PostImage> images;
     @CreationTimestamp
     LocalDateTime createdAt;
 
-    public Post(){}
+    public Post() {
+    }
 
-    public Post(String post, String title, AppUser author, String imagePath) {
-        this.post = post;
+    public Post(String text, String title, AppUser author) {
+        this.text = text;
         this.title = title;
         this.author = author;
-        this.imagePath = imagePath;
+    }
+
+    public List<PostImage> getImages() {
+        return images;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getPost() {
-        return post;
+    public String getText() {
+        return text;
     }
 
-    public void setPost(String post) {
-        this.post = post;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getTitle() {
@@ -61,15 +60,15 @@ public class Post {
         return author;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void removeImage(PostImage image) {
+        this.images.remove(image);
+    }
+
+    public void removeImage(long imageId) {
+        this.images.removeIf(i -> i.id == imageId);
     }
 }

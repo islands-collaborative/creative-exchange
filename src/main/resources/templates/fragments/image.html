@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+
+<section th:fragment="postImage(image)">
+    <img th:src="${@postService.getImageUrl(image)}">
+    <p th:text="'Description: ' + ${image.description}"></p>
+</section>
+
+<section th:fragment="editViewPostImage(${image})">
+    <img th:src="${@postService.getImageUrl(image)}">
+    <form th:action="'/posts/' + ${image.post.id} + '/images/' + ${image.id} + '?_method=put'"
+          method="post">
+        <fieldset>
+            <label for="input-description">Description</label>
+            <textarea id="input-description" name="description"
+                      value="${image.description}"></textarea>
+        </fieldset>
+        <input type="submit" value="Edit description"></input>
+    </form>
+</section>
+
+<section th:fragment="postImages(post)">
+    <ul th:each="image : ${post.images}">
+        <li th:replace="fragments/image :: postImage(${image})">
+    </li>
+    </ul>
+</section>
+
+<section th:fragment="editPostImages(post)">
+    <ul th:each="image : ${post.images}">
+        <li th:replace="fragments/image :: editViewPostImage(${image})">
+        </li>
+    </ul>
+</section>
+
+<section th:fragment="addPostImages(post)">
+    <form th:action="'/posts/' + ${post.id} + '/images'"
+          method="post" enctype="multipart/form-data">
+        <input type="file" name="images" multiple></input>
+        <input type="submit" value="Add images"></input>
+    </form>
+</section>
+
+</body>
+</html>
