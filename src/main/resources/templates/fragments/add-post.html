@@ -7,15 +7,15 @@
 <body>
 <section th:fragment="addPost">
     <form action="/posts" method="post">
-        <fieldset>
-            <label for="edit-title">Post Title:</label>
-            <input id="edit-title" type="text" name="title"></input>
+        <fieldset class="mb-3">
+            <label class="form-label" for="edit-title">Post Title:</label>
+            <input class="form-control" placeholder="Title" id="edit-title" type="text" name="title"></input>
         </fieldset>
-        <fieldset>
-            <label for="edit-description">Description:</label>
-            <input id="edit-description" type="text" name="text"></input>
+        <fieldset class="mb-3">
+            <label class="form-label" for="edit-description">Description:</label>
+            <input class="form-control" placeholder="Description" id="edit-description" type="text" name="text"></input>
         </fieldset>
-        <input type="submit" value="Submit Post!"></input>
+        <input class="btn btn-outline-primary" type="submit" value="Submit Post!"></input>
     </form>
 </section>
 </body>
