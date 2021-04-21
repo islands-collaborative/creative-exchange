@@ -15,10 +15,12 @@
                 <ul class="col-md-7 order-md-2">
                     <li class="featurette-heading" th:text="'Username: ' + ${userPrincipal.username}"></li>
                     <li class="lead" th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
-                    <li class="lead" th:text="'Bio: ' + ${userPrincipal.bio}"></li>
-                    <li class="lead" th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
-                    <li th:if="${userPrincipal.creator}">Creator: &#10004;</li>
-                    <li th:unless="${userPrincipal.creator}">Creator: &#10006;</li>
+                    <li class="lead" th:if="${userPrincipal.bio}" th:text="'Bio: ' + ${userPrincipal.bio}"></li>
+                    <li class="lead" th:unless="${userPrincipal.bio}">Bio: Add your bio below!</li>
+                    <li class="lead" th:if="${userPrincipal.blurb}" th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
+                    <li class="lead" th:unless="${userPrincipal.blurb}" >Blurb: Add a short something about yourself below!</li>
+                    <li class="lead" th:if="${userPrincipal.creator}">Creator: &#10004;</li>
+                    <li class="lead" th:unless="${userPrincipal.creator}">Creator: &#10006;</li>
 
 
                 </ul>
