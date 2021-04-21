@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -173,6 +174,21 @@ public class PostController {
     public RedirectView deletePosts(@PathVariable long postId) {
         postRepository.deleteById(postId);
         return new RedirectView("/profile");
+    }
+
+    /**
+     * @return The template name of the feed route
+     * GET /feed
+     * Requires authentication
+     * <p>
+     * Displays a user's feed with no pagination.
+     */
+    @GetMapping("/feed")
+    public String getFeed(Model m, Principal principal) {
+        AppUser userPrincipal = appUserRepository.findByUsername(principal.getName());
+        List<Post> feed = postService.getUserFeed(userPrincipal);
+        m.addAttribute("feed", feed);
+        return "feed";
     }
 
 }
