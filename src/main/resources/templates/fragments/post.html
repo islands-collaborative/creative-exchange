@@ -23,29 +23,50 @@
 </section>
 
 <th:block th:fragment="usersOwnShort(post)">
+    <div th:if="${post.hasDefaultImage}">
+        <img th:src="${@postService.getDefaultImageSmallUrl(post)}">
+    </div>
+
     <a th:href="'/posts/' + ${post.id}">
         <h2 th:text="${post.title}"></h2>
+    </a>
+    <a th:href="'/users/' + ${post.author.id}">
+        <h3 th:text="'Post by ' + ${post.author.displayName}"></h3>
     </a>
     <p th:text="${post.text}"></p>
     <nav>
         <ul>
-            <li>Edit post</li>
+            <li><a th:href="'posts/' + ${post.id} + '/edit'">Edit post</a></li>
         </ul>
     </nav>
 </th:block>
 
 <th:block th:fragment="loggedInShort(post)">
+    <div th:if="${post.hasDefaultImage}">
+        <img th:src="${@postService.getDefaultImageSmallUrl(post)}">
+    </div>
+
     <a th:href="'/posts/' + ${post.id}">
         <h2 th:text="${post.title}"></h2>
+    </a>
+    <a th:href="'/users/' + ${post.author.id}">
+        <h3 th:text="'Post by ' + ${post.author.displayName}"></h3>
     </a>
     <p th:text="${post.text}"></p>
 </th:block>
 
 <th:block th:fragment="notLoggedInShort(post)">
+    <div th:if="${post.hasDefaultImage}">
+        <img th:src="${@postService.getDefaultImageSmallUrl(post)}">
+    </div>
+
     <a th:href="'/posts/' + ${post.id}">
         <h2 th:text="${post.title}"></h2>
     </a>
-    <p th:text="${post.description}"></p>
+    <a th:href="'/users/' + ${post.author.id}">
+    <h3 th:text="'Post by ' + ${post.author.displayName}"></h3>
+    </a>
+    <p th:text="${post.text}"></p>
 </th:block>
 
 </body>

@@ -20,6 +20,8 @@ public class Post {
     AppUser author;
     @OneToMany(mappedBy = "post")
     List<PostImage> images;
+//    @OneToOne
+//    PostImage defaultImage;
     @CreationTimestamp
     LocalDateTime createdAt;
 
@@ -70,5 +72,13 @@ public class Post {
 
     public void removeImage(long imageId) {
         this.images.removeIf(i -> i.id == imageId);
+    }
+
+    public PostImage getDefaultImage() {
+        return images.isEmpty() ? null : images.get(0);
+    }
+
+    public boolean getHasDefaultImage() {
+        return !images.isEmpty();
     }
 }
