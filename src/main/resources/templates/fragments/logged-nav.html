@@ -12,28 +12,46 @@
 
 
 
-</nav>
-<nav th:fragment="loggedIn">
-    <ul class="d-flex justify-content-end">
-        <li class="btn btn-sm btn-outline-secondary"><a href="/">Home</a></li>
-        <li class="li li-outline-dark"><a href="/profile">Profile</a></li>
-        <li class="btn btn-outline-dark"><a href="/feed">Feed</a></li>
-        <li class="btn btn-outline-dark"><a href="/discover">Discover</a></li>
-        <li class="btn btn-outline-dark"><a href="/about">About Us</a></li>
 
 
-    <li th:text="${userPrincipal.username}"></li>
-        <li><a href="/logout">Logout</a></li>
-    </ul>
-</nav>
+    <nav class="navbar navbar-dark bg-dark" aria-label="navbar" th:fragment="loggedIn">
+        <div class="container-fluid">
+            <a href="" class="navbar-brand">Creative Exchange</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01"
+                    aria-controls="navbarsExample01" aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse show" id="navbarsExample01">
+                <ul class="navbar-nav me-auto mb-2">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/feed">Feed</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/discover">Discover</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    <li class="navbar-brand" th:text="${userPrincipal.username}"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<nav th:fragment="loggedOut">
-    <ul class="nav nav-pills justify-content-end">
-        <li class="nav-item btn btn-outline-dark"><a class="nav-link active" href="/">Home</a></li>
-        <li class="nav-item btn btn-outline-dark"><a class="nav-link active" href="/login">Login</a></li>
-        <li class="nav-item btn btn-outline-dark"><a class="nav-link active" href="/signup">Signup</a></li>
-        <li class="nav-item btn btn-outline-dark"><a class="nav-link active" href="/about">About Us</a></li>
-    </ul>
+
+<nav class="navbar navbar-dark bg-dark" aria-label="navbar" th:fragment="loggedOut">
+    <div class="container-fluid">
+        <a href="" class="navbar-brand">Creative Exchange</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01"
+                aria-controls="navbarsExample01" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse show" id="navbarsExample01">
+            <ul class="navbar-nav me-auto mb-2">
+                <li class="nav-item "><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item "><a class="nav-link" href="/login">Login</a></li>
+                <li class="nav-item "><a class="nav-link" href="/signup">Signup</a></li>
+                <li class="nav-item "><a class="nav-link" href="/about">About Us</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
 </body>
 </html>
