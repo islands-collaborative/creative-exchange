@@ -10,16 +10,16 @@
         <div class="row featurette">
             <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
                 <div class="col-10 col-sm-8 col-lg-6">
-                    <img  class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
+                    <img th:if="${user.hasProfilePicture}" class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
                 </div>
                 <ul class="col-md-7 order-md-2">
                     <li class="featurette-heading" th:text="'Username: ' + ${userPrincipal.username}"></li>
                     <li class="lead" th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
                     <li class="lead" th:text="'Bio: ' + ${userPrincipal.bio}"></li>
                     <li class="lead" th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
-        <!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10004;</li>-->
-        <!--            <li th:if="${userPrincipal.isCreator}">Creator: &#10006;</li>-->
-        <!--            to do: isCreator logic. Not sure why above isn't working-->
+                    <li th:if="${userPrincipal.creator}">Creator: &#10004;</li>
+                    <li th:unless="${userPrincipal.creator}">Creator: &#10006;</li>
+
 
                 </ul>
             </div>

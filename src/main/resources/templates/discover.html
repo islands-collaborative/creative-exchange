@@ -6,15 +6,22 @@
 <h1>Discover Creators</h1>
 <section th:each=" user: ${users}">
     <ul>
-    <li th:text="'Name: ' + ${user.displayName}"></li>
-         <li th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></li>
+        <li th:text="'Name: ' + ${user.displayName}"></li>
+
+        <img th:if="${user.hasProfilePicture}"  class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(user)}">
+        <li th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></li>
         <li><a th:href="'/users/' + ${user.id}">See Profile</a></li>
         <div th:replace="fragments/follow :: follow(${user}) "></div>
+
+
 
 
 <!--        profile pic-->
     </ul>
 
 </section>
+
+<footer th:replace="fragments/layout :: footer"></footer>
+
 </body>
 </html>

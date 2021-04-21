@@ -114,7 +114,7 @@ public class UserController {
 
         appUserService.updateProfilePicture(userPrincipal, multipartFile);
         appUserRepository.save(userPrincipal);
-        return new RedirectView("profile");
+        return new RedirectView("/profile");
     }
 //    to do: make follow redirect to current view
     @PutMapping("/follow/{userId}")

@@ -24,6 +24,7 @@ public class AppUser implements UserDetails {
     String blurb;
     Boolean isCreator = false;
     String imageFilename;
+
     //TODO Picture
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -178,6 +179,11 @@ public class AppUser implements UserDetails {
     public Boolean getCreator() {
         return isCreator;
     }
+    //    the standard getters and setters weren't getting along with thymeleaf
+    public Boolean creatorCheck (){
+        if (isCreator == true) return true;
+        else return false;
+    }
 
     public void setCreator(Boolean creator) {
         isCreator = creator;
@@ -202,4 +208,11 @@ public class AppUser implements UserDetails {
                 ", createdAt=" + createdAt +
                 '}';
     }
+
+    public Boolean hasProfilePicture (){
+        if (imageFilename == null) return false;
+        else return true;
+    }
+
+
 }
