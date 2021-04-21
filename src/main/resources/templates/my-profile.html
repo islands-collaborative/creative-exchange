@@ -19,7 +19,7 @@
                     <li class="lead" th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
                     <li th:if="${userPrincipal.creator}">Creator: &#10004;</li>
                     <li th:unless="${userPrincipal.creator}">Creator: &#10006;</li>
-        <!--            to do: isCreator logic. Not sure why above isn't working-->
+
 
                 </ul>
             </div>
