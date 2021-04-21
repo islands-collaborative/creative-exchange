@@ -4,22 +4,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* widows: 960px; */
+   
     box-sizing: border-box;
   color: #23293D;
   background-color: #adb4d1;
+  width: 100%;
 }
 #blurbs{
   display:grid;
   grid-template-columns: 480px 480px;
-  /* using fractions for dynamic display could use 250px instead for mobile display */
-  grid-template-rows: 50px 525px 400px 50px 50px 525px 400px 50px;
-  height: 2400px;
+  grid-template-rows: 50px 525px 375px 50px 50px 525px 375px 50px;
+  height: 2000px;
 }
 .intro{
   height: 350px;
 }
 .member-name{
+  margin-top: 20px;
   justify-items: center;
   text-align: center;
   font-size: 18px;
