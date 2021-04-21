@@ -5,27 +5,59 @@
 <body>
 
 <section th:fragment="postImage(image)">
-    <img th:src="${@postService.getImageUrl(image)}">
-    <p th:text="'Description: ' + ${image.description}"></p>
+    <img class="img-fluid" th:src="${@postService.getImageUrl(image)}">
+    <div class="row justify-content-center">
+        <p th:text="'Description: ' + ${image.description}"></p>
+    </div>
 </section>
 
 <section th:fragment="editViewPostImage(${image})">
     <img th:src="${@postService.getImageUrl(image)}">
-    <form th:action="'/posts/' + ${image.post.id} + '/images/' + ${image.id} + '?_method=put'"
-          method="post">
-        <fieldset>
-            <label for="input-description">Description</label>
-            <textarea id="input-description" name="description"
-                      value="${image.description}"></textarea>
-        </fieldset>
-        <input type="submit" value="Edit description"></input>
-    </form>
+
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false" aria-controls="editDescription">
+        <i class="bi bi-pencil-fill"></i>
+        Edit Description
+    </a>
+    <div class="collapse" id="editDescription">
+        <form th:action="'/posts/' + ${image.post.id} + '/images/' + ${image.id} + '?_method=put'"
+              method="post">
+            <fieldset>
+                <label for="input-description">Description</label>
+                <textarea id="input-description" name="description"
+                          value="${image.description}"></textarea>
+            </fieldset>
+            <input type="submit" value="Edit description"></input>
+        </form>
+
+        <form th:action="'/posts/' + ${image.post.id} + '/images/' + ${image.id} + '?_method=delete'"
+              method="post">
+            <input type="submit" value="Delete image"></input>
+        </form>
+    </div>
+
+</section>
+
+<section id="postImageCarousel" class="carousel slide" data-bs-ride="carousel" th:fragment="postImageCarousel(post)">
+    <div class="carousel-inner">
+        <div th:each="image, itStatus: ${post.images}"
+             th:class="${itStatus.first}? 'carousel-item active' : 'carousel-item'">
+            <div th:replace="fragments/image :: postImage(${image})"></div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#postImageCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#postImageCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </section>
 
 <section th:fragment="postImages(post)">
     <ul th:each="image : ${post.images}">
         <li th:replace="fragments/image :: postImage(${image})">
-    </li>
+        </li>
     </ul>
 </section>
 

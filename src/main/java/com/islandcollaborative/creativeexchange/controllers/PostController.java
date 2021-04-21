@@ -83,9 +83,9 @@ public class PostController {
      * profile page at /users/{userId}.
      */
     @PostMapping("/posts")
-    public RedirectView addPost(HttpServletRequest request, String postText, String title, String author) {
+    public RedirectView addPost(HttpServletRequest request, String text, String title, String author) {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        Post post = new Post(postText, title, userPrincipal);
+        Post post = new Post(text, title, userPrincipal);
         postRepository.save(post);
         return new RedirectView("posts");
     }
@@ -100,12 +100,12 @@ public class PostController {
      * profile page at /users/{userId}.
      */
     @PutMapping("/posts/{postId}")
-    public RedirectView updatePosts(@PathVariable long postId, String postText, String title) {
+    public RedirectView updatePosts(@PathVariable long postId, String text, String title) {
         Post post = postRepository.getOne(postId);
-        post.setText(postText);
+        post.setText(text);
         post.setTitle(title);
         postRepository.save(post);
-        return new RedirectView("");
+        return new RedirectView("/posts/" + postId + "/edit");
     }
 
     /**

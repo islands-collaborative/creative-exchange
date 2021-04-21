@@ -5,8 +5,10 @@
 <body>
 <header th:replace="fragments/layout :: header"> </header>
 <main>
-    <h1>Your feed</h1>
-    <ul th:replace="fragments/post :: list(${feed})"></ul>
+    <div class="container">
+        <h1>Your feed</h1>
+        <section th:replace="fragments/post :: list(${feed})"></section>
+    </div>
 </main>
 <footer th:replace="fragments/layout :: footer"> </footer>
 </body>

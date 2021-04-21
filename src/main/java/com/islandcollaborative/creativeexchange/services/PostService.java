@@ -71,6 +71,10 @@ public class PostService {
                 + "/" + image.getFilename());
     }
 
+    public String getDefaultImageSmallUrl(Post post) throws IOException {
+        return getImageUrl(post.getDefaultImage());
+    }
+
     public void removeImage(PostImage image) {
         String path = postImageRoot + image.getPost().getId() + "/" + image.getId() + image.getExtension();
         fileUploadService.delete(path);
