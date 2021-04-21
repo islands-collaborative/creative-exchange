@@ -179,6 +179,11 @@ public class AppUser implements UserDetails {
     public Boolean getCreator() {
         return isCreator;
     }
+    //    the standard getters and setters weren't getting along with thymeleaf
+    public Boolean creatorCheck (){
+        if (isCreator == true) return true;
+        else return false;
+    }
 
     public void setCreator(Boolean creator) {
         isCreator = creator;
@@ -208,10 +213,6 @@ public class AppUser implements UserDetails {
         if (imageFilename == null) return false;
         else return true;
     }
-//    the standard getters and setters weren't getting along with thymeleaf
-    public Boolean creatorCheck (){
-        if (isCreator == true) return true;
-        else return false;
-    }
+
 
 }
