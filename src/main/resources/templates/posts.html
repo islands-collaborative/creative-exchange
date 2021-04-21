@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head('Posts')"></head>
+<body>
+<header th:replace="fragments/layout :: header"> </header>
+
+<main>
+    <form th:replace="fragments/add-post :: addPost"></form>
+
+    <h1>Posts</h1>
+    <ul th:replace="fragments/post :: list(${posts})"></ul>
+</main>
+
+<footer th:replace="fragments/layout :: footer"> </footer>
+</body>
+</html>

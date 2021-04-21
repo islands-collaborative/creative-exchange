@@ -27,6 +27,9 @@ public class AppUserService {
     }
 
     public String getProfilePicturePath(AppUser userPrincipal) {
-        return fileUploadService.getURL(profileImageRoot + userPrincipal.getId() + "/" + userPrincipal.getImageFilename());
+        return fileUploadService.getURL(
+                profileImageRoot + userPrincipal.getId() +
+                        "/" + userPrincipal.getImageFilename()
+        );
     }
 }
