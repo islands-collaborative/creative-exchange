@@ -27,6 +27,8 @@ public class AppUser implements UserDetails {
 
     //TODO Picture
 
+
+
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Message> sentMessages = new ArrayList<>();
     @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, orphanRemoval = true)

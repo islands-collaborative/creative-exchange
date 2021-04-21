@@ -1,0 +1,107 @@
+
+#about-us{
+  margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* widows: 960px; */
+    box-sizing: border-box;
+  color: #23293D;
+  background-color: #adb4d1;
+}
+#blurbs{
+  display:grid;
+  grid-template-columns: 480px 480px;
+  /* using fractions for dynamic display could use 250px instead for mobile display */
+  grid-template-rows: 50px 525px 400px 50px 50px 500px 600px 50px;
+  height: 80vh;
+}
+.intro{
+  height: 350px;
+}
+.member-name{
+  justify-items: center;
+  text-align: center;
+  font-size: 18px;
+}
+.hero{
+  max-width: 460px;
+  max-height:500px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .24), 0 1px 4px rgba(0, 0, 0, .48);
+  border-radius: 20px;
+  justify-items: center;
+  align-items: center;
+  margin: auto;
+
+} 
+.intro{
+  text-align: justify;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .24), 0 1px 4px rgba(0, 0, 0, .48);
+  border-radius: 20px;
+}
+.hero:first-child{
+  grid-row:2;
+  grid-column: 1/2;
+}
+#andyh2{
+  grid-row:1;
+  grid-column: 2/3;
+}
+
+#andy{
+  grid-row: 2;
+  grid-column: 2/3;
+}
+
+#andyp{
+  grid-row: 3;
+  grid-column: 2/3;
+}
+
+#andy-links{
+  grid-row: 4;
+  grid-column: 2/3;
+}
+
+#shayh2{
+  grid-row:1;
+  grid-column: 1/2;
+}
+
+#shay{
+  grid-row: 2;
+  grid-column: 1/2;
+}
+
+#shayp{
+  grid-row: 3;
+  grid-column: 1/2;
+}
+
+#shay-links{
+  grid-row: 4;
+  grid-column: 1/2;
+}
+
+#edh2{
+  grid-row:5;
+  grid-column: 1/2;
+}
+
+#ed{
+  grid-row: 6;
+  grid-column: 1/2;
+}
+
+#edp{
+  grid-row: 7;
+  grid-column: 1/2;
+}
+
+#ed-links{
+  grid-row: 8;
+  grid-column: 1/2;
+}
