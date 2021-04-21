@@ -2,13 +2,15 @@
 
 A web application built by Andy Agulue, Edward Hou, James Mansour, and Seamus Brown.
 
-So far unnamed but taking shape.
+## Summary
 
-## Usage
+Our vision is to create a platform for creators to display their works, share ideas and find commissions while giving consumers a streamlined experience to view and contact creators. This allows creators to actively search for commissions that meet their skillset and requirements. Consumers can discover by content creators have already produced. This app is a dynamic platform that lets both creators and consumers manage their relationships the way they want to.
+
+## How to run
 
 Set the environment variables to include database credentials and API keys.
 
-A PostgreSQL database and an AWS S3 deployment are currently required to run.
+A PostgreSQL database named `creative` and an AWS S3 deployment are currently required to run.
 
 An example of the environment files that need to be set can be found in the [`.env.example`](.env.example) file.
 
@@ -24,6 +26,9 @@ An example of the environment files that need to be set can be found in the [`.e
 
 - [Heroku](https://devcenter.heroku.com/)
 
+## API Documentation
+
+- [Link] (docs/api.md)
 
 ## Software Requirements
 
@@ -32,4 +37,3 @@ An example of the environment files that need to be set can be found in the [`.e
 ## User Stories
 
 -[Link](docs/user-stories.md)
-
