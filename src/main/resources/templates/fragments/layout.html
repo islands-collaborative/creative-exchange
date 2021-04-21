@@ -5,8 +5,8 @@
     <title>Title</title>
 </head>
 <body class="d-flex flex-column h-100">
-<header th:fragment="header"
-        class="p-3 mb-2 bg-secondary bg-gradient text-white">
+<header th:fragment="header">
+
 
     <nav th:replace="${userPrincipal == null} ?
     ~{fragments/logged-nav :: loggedOut} :
