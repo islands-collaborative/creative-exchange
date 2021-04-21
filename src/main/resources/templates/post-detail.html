@@ -2,21 +2,24 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head :: head('Post by ' + ${post.author.displayName})"></head>
 <body>
-<header th:replace="fragments/layout :: header"> </header>
+<header th:replace="fragments/layout :: header"></header>
 
 <main>
-    <h1 th:text="'Post by ' + ${post.author.displayName}"></h1>
+    <div class="container">
+        <h1 th:text="'Post by ' + ${post.author.displayName}"></h1>
 
-    <div th:if="${userPrincipal} and ${userPrincipal.id == post.author.id}">
-        <a class="btn btn-primary" th:href="'/posts/' + ${post.id} + '/edit'">
-            <i class="bi bi-pencil-fill"></i> Edit Post
-        </a>
+        <section th:replace="fragments/image :: postImageCarousel(${post})"></section>
+
+        <div th:if="${userPrincipal} and ${userPrincipal.id == post.author.id}">
+            <a class="btn btn-primary" th:href="'/posts/' + ${post.id} + '/edit'">
+                <i class="bi bi-pencil-fill"></i> Edit Post
+            </a>
+        </div>
+
+        <h2 th:text="'Description: ' + ${post.text}"></h2>
+
     </div>
-
-
-    <h2 th:text="'Description: ' + ${post.text}"></h2>
-    <section th:replace="fragments/image :: postImages(${post})"></section>
 </main>
-<footer th:replace="fragments/layout :: footer"> </footer>
+<footer th:replace="fragments/layout :: footer"></footer>
 </body>
 </html>
