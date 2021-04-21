@@ -1,10 +1,12 @@
 package com.islandcollaborative.creativeexchange.services;
 
+import com.islandcollaborative.creativeexchange.models.AppUser;
 import com.islandcollaborative.creativeexchange.models.Post;
 import com.islandcollaborative.creativeexchange.models.PostImage;
 import com.islandcollaborative.creativeexchange.repositories.PostImageRepository;
 import com.islandcollaborative.creativeexchange.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,8 +14,10 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -64,5 +68,12 @@ public class PostService {
 
     public void removeImage(Post post, PostImage image) {
         // TODO
+    }
+
+    public List<Post> getUserFeed(AppUser userPrincipal) {
+        return postRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
+                .stream()
+                .filter(u -> userPrincipal.getFollowed().contains(userPrincipal))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
