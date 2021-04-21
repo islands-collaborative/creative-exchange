@@ -1,15 +1,22 @@
-/*html,
+html,
 body {
   height: 100%;
 }
 
 body {
-  display: flex;
-  align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
+  display: flex; 
+  flex-flow: column;
+  
+  
 }
+header{
+  flex-shrink: 0;
+
+}
+main{
+  flex-shrink: 0;
+}
+
 /*
 .form-signin {
   width: 100%;

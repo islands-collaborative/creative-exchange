@@ -13,8 +13,8 @@
   display:grid;
   grid-template-columns: 480px 480px;
   /* using fractions for dynamic display could use 250px instead for mobile display */
-  grid-template-rows: 50px 525px 400px 50px 50px 500px 600px 50px;
-  height: 80vh;
+  grid-template-rows: 50px 525px 400px 50px 50px 525px 400px 50px;
+  height: 2400px;
 }
 .intro{
   height: 350px;
@@ -34,6 +34,11 @@
   margin: auto;
 
 } 
+.links{
+  margin-left: auto;
+  margin-right:auto;
+
+}
 .intro{
   text-align: justify;
   margin-left: 20px;
