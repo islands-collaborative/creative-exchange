@@ -71,24 +71,27 @@ public class UserController {
 
     /**
      * @return redirects to /profile
-     * PUT /profile
+     * PUT /profile/is-creator
      * Requires authentication
      * <p>
      * Allows a user to edit the details of their own profile, including changing their bio,
      * information, linked accounts. Redirects to /profile.
      */
 //  // to-do stretch goal refactor to put and delete routes to prevent undesired results
-    @PostMapping("/profile/is-creator")
-    public RedirectView updateCreator (HttpServletRequest request){
+    @PutMapping("/profile/is-creator")
+    public RedirectView updateCreatorTrue (HttpServletRequest request){
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        if (userPrincipal.getCreator() == null || userPrincipal.getCreator() == false) userPrincipal.setCreator(true);
-        else userPrincipal.setCreator(false);
-//        this version did not work
-//        if (userPrincipal.getCreator() == null)
-//        userPrincipal.setCreator(!userPrincipal.getCreator());
+        userPrincipal.setCreator(true);
         appUserRepository.save(userPrincipal);
         return new RedirectView("/profile");
 
+    }
+    @DeleteMapping("/profile/is-creator")
+    public RedirectView updateCreatorFalse (HttpServletRequest request){
+        AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
+        userPrincipal.setCreator(false);
+        appUserRepository.save(userPrincipal);
+        return new RedirectView("/profile" );
     }
 //
 

@@ -26,14 +26,28 @@
         </div>
         <hr class="featurette-divider">
         <div class="col-10 mx-auto col-lg-5">
-            <form class="mb-3 form-check form-switch" action="/profile/is-creator" method="post" >
-                <div >
+            <form class="mb-3 form-check form-switch" action="/profile/is-creator?_method=DELETE" method="post"
+            th:if="${userPrincipal.creator}">
+                <div>
                     <fieldset>
-                        <input class="form-check-input" type="submit" value="">
-                        <label class=" form-check-label">Click to toggle creator mode</label>
+                        <input  class="btn-check"  id="btn-check" type="submit" value="">
+                        <label class="btn btn-primary" for="btn-check">Click to turn off creator mode</label>
                     </fieldset>
                 </div>
             </form>
+
+            <form class="mb-3 form-check form-switch" action="/profile/is-creator?_method=PUT" method="post"
+                  th:unless="${userPrincipal.creator}">
+                <div>
+                    <fieldset>
+                        <input class="btn-check" id="btn-check-2" type="submit" value="">
+                        <label class="btn btn-primary" for="btn-check-2">Click to turn on creator mode</label>
+                    </fieldset>
+                </div>
+            </form>
+
+
+
             <form class="p-5 border rounded-3 bg-light" action="/profile?_method=PUT" method="post" enctype="multipart/form-data">
                 <fieldset class="form-floating mb-3">
                     <input class="form-control" id="input-display-name" type="text" name="displayName">
