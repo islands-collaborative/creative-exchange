@@ -17,23 +17,21 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class PostService {
-    @Autowired
-    PostRepository postRepository;
+    @Autowired PostRepository postRepository;
 
-    @Autowired
-    PostImageRepository postImageRepository;
+    @Autowired PostImageRepository postImageRepository;
 
-    @Autowired
-    FileUploadService fileUploadService;
+    @Autowired FileUploadService fileUploadService;
 
-    private List<String> allowedContentTypes = Arrays.asList(
-            "image/jpg",
-            "image/jpeg",
-            "image/png"
+    private Map<String, String> contentTypesExtensions = Map.ofEntries(
+            Map.entry("image/jpg", ".jpg"),
+            Map.entry("image/jpeg", ".jpg"),
+            Map.entry("image/png", ".png")
     );
 
     private final String postImageRoot = "posts/";
@@ -42,22 +40,29 @@ public class PostService {
         if (images == null || images.length == 0) return;
 
         for (MultipartFile image : images) {
-            if (!allowedContentTypes.contains(image.getContentType())) continue;
 
-            System.out.println("===============================");
-            System.out.println(images[0].getOriginalFilename());
-            System.out.println(images[0].getName());
-            System.out.println(images[0].getBytes());
-            System.out.println(images[0].getSize());
-            System.out.println(images[0].getResource());
-            System.out.println(images[0].getContentType());
-            System.out.println("===============================");
-            String path = postImageRoot + post.getId() + "/" + image.getOriginalFilename();
-            InputStream stream = new BufferedInputStream(image.getInputStream());
-            fileUploadService.upload(path, stream);
+            String ext = contentTypesExtensions.get(image.getContentType());
+            if (ext == null) continue;
 
-            PostImage postImage = new PostImage(image.getOriginalFilename(), post, null);
+//            System.out.println("===============================");
+//            System.out.println(images[0].getOriginalFilename());
+//            System.out.println(images[0].getName());
+//            System.out.println(images[0].getBytes());
+//            System.out.println(images[0].getSize());
+//            System.out.println(images[0].getResource());
+//            System.out.println(images[0].getContentType());
+//            System.out.println("===============================");
+
+            PostImage postImage = new PostImage(ext, post, null);
             postImageRepository.save(postImage);
+            String path = postImageRoot + post.getId() + "/" + postImage.getId() + ext;
+            InputStream stream = new BufferedInputStream(image.getInputStream());
+
+            try {
+                fileUploadService.upload(path, stream, image.getContentType(), image.getSize());
+            } catch (Exception e) {
+                postImageRepository.delete(postImage);
+            }
         }
     }
 
@@ -66,8 +71,10 @@ public class PostService {
                 + "/" + image.getFilename());
     }
 
-    public void removeImage(Post post, PostImage image) {
-        // TODO
+    public void removeImage(PostImage image) {
+        String path = postImageRoot + image.getPost().getId() + "/" + image.getId() + image.getExtension();
+        fileUploadService.delete(path);
+        postImageRepository.delete(image);
     }
 
     public List<Post> getUserFeed(AppUser userPrincipal) {
