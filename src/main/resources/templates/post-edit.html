@@ -5,6 +5,9 @@
 <header th:replace="fragments/layout :: header"></header>
 
 <main>
+    <a class="btn btn-primary" th:href="'/posts/' + ${post.id}">
+        Go to Public View
+    </a>
     <h1 th:text="${post.title}"></h1>
     <a class="btn btn-primary" data-bs-toggle="collapse" href="#editTitle" aria-expanded="false" aria-controls="editTitle">Edit Description</a>
     <div class="collapse" id="editTitle">
