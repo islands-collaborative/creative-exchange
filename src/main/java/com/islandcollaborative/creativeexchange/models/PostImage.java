@@ -11,7 +11,7 @@ public class PostImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    String filename;
+    String extension;
     String description;
     @ManyToOne
     @JoinColumn(name = "post_id")
@@ -22,8 +22,8 @@ public class PostImage {
     public PostImage() {
     }
 
-    public PostImage(String filename, Post post, String description) {
-        this.filename = filename;
+    public PostImage(String extension, Post post, String description) {
+        this.extension = extension;
         this.description = description;
         this.post = post;
     }
@@ -36,12 +36,16 @@ public class PostImage {
         return id;
     }
 
-    public String getFilename() {
-        return filename;
+    public String getExtension() {
+        return extension;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public String getFilename() {
+        return "" + id + extension;
+    }
+
+    public void setExtension(String filename) {
+        this.extension = filename;
     }
 
     public String getDescription() {

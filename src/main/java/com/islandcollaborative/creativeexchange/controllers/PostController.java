@@ -159,7 +159,7 @@ public class PostController {
         PostImage image = postImageRepository.getOne(imageId);
         Post post = postRepository.getOne(postId);
         postImageRepository.delete(image);
-        postService.removeImage(post, image);
+        postService.removeImage(image);
         return new RedirectView("/posts/" + postId + "/edit");
     }
 
