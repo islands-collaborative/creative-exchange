@@ -23,7 +23,6 @@ public class AppUser implements UserDetails {
     String bio;
     String blurb;
     Boolean isCreator = false;
-    String imageFilename;
 
     //TODO Picture
 
@@ -40,6 +39,9 @@ public class AppUser implements UserDetails {
 
     @CreationTimestamp
     LocalDateTime createdAt;
+    private String imageExtension;
+    @Column(columnDefinition = "boolean default false")
+    private boolean hasProfilePicture = false;
 
     public AppUser() {
     }
@@ -54,7 +56,6 @@ public class AppUser implements UserDetails {
         this.username = username;
         this.password = password;
         this.displayName = displayName;
-
     }
 
     public String getBlurb() {
@@ -142,6 +143,7 @@ public class AppUser implements UserDetails {
     public void addFollowing(AppUser userToFollow){
         followed.add(userToFollow);
     }
+
     public void removeFollowing(AppUser userToRemove){
         followed.remove(userToRemove);
     }
@@ -191,14 +193,6 @@ public class AppUser implements UserDetails {
         isCreator = creator;
     }
 
-    public String getImageFilename() {
-        return imageFilename;
-    }
-
-    public void setImageFilename(String filename) {
-        imageFilename = filename;
-    }
-
     @Override
     public String toString() {
         return "AppUser{" +
@@ -211,10 +205,17 @@ public class AppUser implements UserDetails {
                 '}';
     }
 
-    public Boolean hasProfilePicture (){
-        if (imageFilename == null) return false;
-        else return true;
+    public String getImageExtension() {
+        return imageExtension;
     }
 
+    public void setImageExtension(String ext) { imageExtension = ext; }
 
+    public void setHasProfilePicture(boolean hasProfilePicture) {
+        this.hasProfilePicture = hasProfilePicture;
+    }
+
+    public boolean getHasProfilePicture() { return hasProfilePicture; }
+
+    public boolean hasProfilePicture() { return hasProfilePicture; }
 }
