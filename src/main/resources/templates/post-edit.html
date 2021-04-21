@@ -5,11 +5,12 @@
 <header th:replace="fragments/layout :: header"></header>
 
 <main>
+    <div class="container">
     <a class="btn btn-primary" th:href="'/posts/' + ${post.id}">
         Go to Public View
     </a>
     <h1 th:text="${post.title}"></h1>
-    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editTitle" aria-expanded="false" aria-controls="editTitle">Edit Description</a>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editTitle" aria-expanded="false" aria-controls="editTitle"><i class="bi bi-pencil-fill"></i> Edit Title</a>
     <div class="collapse" id="editTitle">
         <form th:action="'/posts/' + ${post.id} + '?_method=put'" method="post">
             <input id="editTitleInput" name="title" th:value="${post.title}"></input>
@@ -21,7 +22,7 @@
 
 
     <section th:text="'Description: ' + ${post.text}"></section>
-    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false" aria-controls="editDescription">Edit Description</a>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false" aria-controls="editDescription"><i class="bi bi-pencil-fill"> Edit Description</a>
     <div class="collapse" id="editDescription">
         <form th:action="'/posts/' + ${post.id} + '?_method=put'" method="post">
             <textarea id="editDescriptionTextarea" name="text" th:value="${post.text}"></textarea>
@@ -30,6 +31,7 @@
     </div>
     <section th:replace="fragments/image :: editPostImages(${post})"></section>
     <section th:replace="fragments/image :: addPostImages(${post})"></section>
+    </div>
 </main>
 <footer th:replace="fragments/layout :: footer"></footer>
 </body>

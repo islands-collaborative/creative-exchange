@@ -12,7 +12,10 @@
 <section th:fragment="editViewPostImage(${image})">
     <img th:src="${@postService.getImageUrl(image)}">
 
-    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false" aria-controls="editDescription">Edit Description</a>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false" aria-controls="editDescription">
+        <i class="bi bi-pencil-fill"></i>
+        Edit Description
+    </a>
     <div class="collapse" id="editDescription">
         <form th:action="'/posts/' + ${image.post.id} + '/images/' + ${image.id} + '?_method=put'"
               method="post">
