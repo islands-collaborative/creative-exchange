@@ -6,9 +6,25 @@
 
 <main>
     <h1 th:text="${post.title}"></h1>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editTitle" aria-expanded="false" aria-controls="editTitle">Edit Description</a>
+    <div class="collapse" id="editTitle">
+        <form th:action="'/posts/' + ${post.id} + '?_method=put'" method="post">
+            <input id="editTitleInput" name="title" th:value="${post.title}"></input>
+            <input type="submit" value="Submit Changes"></input>
+        </form>
+    </div>
     <h2 th:text="'Post by ' + ${post.author.displayName}"></h2>
     <h3 th:text="'Posted on ' + ${post.createdAt}"></h3>
+
+
     <section th:text="'Description: ' + ${post.text}"></section>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false" aria-controls="editDescription">Edit Description</a>
+    <div class="collapse" id="editDescription">
+        <form th:action="'/posts/' + ${post.id} + '?_method=put'" method="post">
+            <textarea id="editDescriptionTextarea" name="text" th:value="${post.text}"></textarea>
+            <input type="submit" value="Submit Changes"></input>
+        </form>
+    </div>
     <section th:replace="fragments/image :: editPostImages(${post})"></section>
     <section th:replace="fragments/image :: addPostImages(${post})"></section>
 </main>
