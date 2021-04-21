@@ -10,7 +10,7 @@
         <div class="row featurette">
             <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
                 <div class="col-10 col-sm-8 col-lg-6">
-                    <img th:if="${user.hasProfilePicture}" class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
+                    <img th:if="${userPrincipal.hasProfilePicture}" class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
                 </div>
                 <ul class="col-md-7 order-md-2">
                     <li class="featurette-heading" th:text="'Username: ' + ${userPrincipal.username}"></li>
