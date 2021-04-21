@@ -4,8 +4,9 @@
     <head th:replace="fragments/head :: head('Inbox')"></head>
 </head>
 <body>
+<header th:replace="fragments/layout :: header"> </header>
 <main>
-    <h1>Inbox</h1>
+    <h1 class="text-center">Inbox</h1>
     <div th:replace="fragments/message :: inboxList(${messages})"></div>
 </main>
 <footer th:replace="fragments/layout :: footer"> </footer>

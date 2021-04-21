@@ -2,41 +2,59 @@
 <html lang="en">
 <body>
 
-<section th:fragment="inboxToView(message)">
-    <div>
-        <li th:text="'To: ' + ${message.recipient.displayName}"></li>
-        <li th:text="'Sent: ' + ${message.createdAt}"></li>
-        <li th:text="${message.message}"></li>
-        <a th:href="'/users/' + ${message.recipient.id} + '/messages'"></a>
+<div th:fragment="inboxToView(message)" class="container p-3">
+    <div class="card p-3">
+    <div class="row gx-5">
+        <div class="col-3">
+            <div th:text="'From: ' + ${message.sender.displayName}"></div>
+            <div th:text="'Sent: ' + ${@dateTimeService.formattedDateTime(message.createdAt)}"></div>
+        </div>
+        <div class="col-6" th:text="${message.message}"></div>
+        <div class="col-3"><a class="btn btn-outline-secondary btn-lg px-4"
+                              th:href="'/users/' + ${message.sender.id} + '/messages'">View</a></div>
     </div>
-</section>
-
-<section th:fragment="inboxFromView(message)">
-    <div>
-        <li th:text="'From: ' + ${message.sender.displayName}"></li>
-        <li th:text="'Sent: ' + ${message.createdAt}"></li>
-        <li th:text="${message.message}"></li>
-        <a th:href="'/users/' + ${message.sender.id} + '/messages'"></a>
     </div>
-</section>
+</div>
 
-<section th:fragment="threadToView(message)">
-    <div>
-        <li th:text="'To: ' + ${message.recipient.displayName}"></li>
-        <li th:text="'Sent: ' + ${message.createdAt}"></li>
-        <li th:text="${message.message}"></li>
+<div th:fragment="inboxFromView(message)" class="container p-3">
+    <div class="card p-3">
+    <div class="row gx-5">
+        <div class="col-3">
+            <div th:text="'To: ' + ${message.recipient.displayName}"></div>
+            <div th:text="'Sent: ' + ${@dateTimeService.formattedDateTime(message.createdAt)}"></div>
+        </div>
+        <div class="col-6" th:text="${message.message}"></div>
+        <div class="col-3"><a class="btn btn-outline-secondary btn-lg px-4"
+                              th:href="'/users/' + ${message.recipient.id} + '/messages'">View</a></div>
     </div>
-</section>
-
-<section th:fragment="threadFromView(message)">
-    <div>
-        <li th:text="'From: ' + ${message.sender.displayName}"></li>
-        <li th:text="'Sent: ' + ${message.createdAt}"></li>
-        <li th:text="${message.message}"></li>
     </div>
-</section>
+</div>
 
-<section th:fragment="inbox(message)">
+<div th:fragment="threadToView(message)" class="container p-3">
+    <div class="card p-3">
+    <div class="row gx-5">
+        <div class="col-3">
+            <div th:text="'To: ' + ${message.recipient.displayName}"></div>
+            <div th:text="'Sent: ' + ${@dateTimeService.formattedDateTime(message.createdAt)}"></div>
+        </div>
+        <div class="col-6" th:text="${message.message}"></div>
+    </div>
+    </div>
+</div>
+
+<div th:fragment="threadFromView(message)" class="container p-3">
+    <div class="card p-3">
+    <div class="row gx-5">
+        <div class="col-3">
+            <div th:text="'From: ' + ${message.sender.displayName}"></div>
+            <div th:text="'Sent: ' + ${@dateTimeService.formattedDateTime(message.createdAt)}"></div>
+        </div>
+        <div class="col-6" th:text="${message.message}"></div>
+    </div>
+    </div>
+</div>
+
+<th:block th:fragment="inbox(message)">
     <th:block th:if="${userPrincipal} and ${userPrincipal.id == message.sender.id}">
         <th:block th:replace="fragments/message :: inboxFromView(${message})"></th:block>
     </th:block>
@@ -46,9 +64,9 @@
     <th:block th:if="${userPrincipal == null}">
         <th:block th:replace="fragments/message :: notLoggedInShort(${post})"></th:block>
     </th:block>
-</section>
+</th:block>
 
-<section th:fragment="thread(message)">
+<th:block th:fragment="thread(message)">
     <th:block th:if="${userPrincipal} and ${userPrincipal.id == message.sender.id}">
         <th:block th:replace="fragments/message :: threadToView(${message})"></th:block>
     </th:block>
@@ -58,19 +76,19 @@
     <th:block th:if="${userPrincipal == null}">
         <th:block th:replace="fragments/message :: notLoggedInShort(${post})"></th:block>
     </th:block>
-</section>
+</th:block>
 
-<section th:fragment="inboxList(messages)">
-    <ul th:each="message : ${messages}">
+<ul th:fragment="inboxList(messages)" class="container">
+    <th:block th:each="message : ${messages}">
         <li th:replace="fragments/message :: inbox(${message})"></li>
-    </ul>
-</section>
+    </th:block>
+</ul>
 
-<section th:fragment="threadList(messages)">
-    <ul th:each="message : ${messages}">
-        <li th:replace="fragments/message :: inbox(${message})"></li>
-    </ul>
-</section>
+<ul th:fragment="threadList(messages)" class="container">
+    <th:block th:each="message : ${messages}">
+        <li th:replace="fragments/message :: thread(${message})"></li>
+    </th:block>
+</ul>
 
 </body>
 </html>
