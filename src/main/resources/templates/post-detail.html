@@ -5,6 +5,7 @@
 <header th:replace="fragments/layout :: header"> </header>
 
 <main>
+
     <h1 th:text="'Post by ' + ${post.author.displayName}"></h1>
     <h2 th:text="'Description: ' + ${post.text}"></h2>
     <section th:replace="fragments/image :: postImages(${post})"></section>

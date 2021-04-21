@@ -11,15 +11,20 @@
 
 <section th:fragment="editViewPostImage(${image})">
     <img th:src="${@postService.getImageUrl(image)}">
-    <form th:action="'/posts/' + ${image.post.id} + '/images/' + ${image.id} + '?_method=put'"
-          method="post">
-        <fieldset>
-            <label for="input-description">Description</label>
-            <textarea id="input-description" name="description"
-                      value="${image.description}"></textarea>
-        </fieldset>
-        <input type="submit" value="Edit description"></input>
-    </form>
+
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false" aria-controls="editDescription">Edit Description</a>
+    <div class="collapse" id="editDescription">
+        <form th:action="'/posts/' + ${image.post.id} + '/images/' + ${image.id} + '?_method=put'"
+              method="post">
+            <fieldset>
+                <label for="input-description">Description</label>
+                <textarea id="input-description" name="description"
+                          value="${image.description}"></textarea>
+            </fieldset>
+            <input type="submit" value="Edit description"></input>
+        </form>
+    </div>
+
 </section>
 
 <section th:fragment="postImages(post)">
