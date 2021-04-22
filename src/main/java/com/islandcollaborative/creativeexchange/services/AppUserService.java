@@ -32,12 +32,15 @@ public class AppUserService {
 
     public void updateProfilePicture(AppUser userPrincipal,
                                             MultipartFile image) throws IOException {
-        if (image == null) return;
+        if (image == null || image.getContentType() == "application/octet-stream") return;
 
         String ext = contentTypesExtensions.get(image.getContentType());
         if (ext == null) throw new InvalidContentTypeException("File type must be a jpg or png");
 
         String path = profileImageRoot + userPrincipal.getId() + ext;
+        System.out.println("=============DEBUG============");
+        System.out.println(path);
+        System.out.println("=============DEBUG============");
         InputStream stream = new BufferedInputStream(image.getInputStream());
 
         try {
@@ -53,6 +56,9 @@ public class AppUserService {
     }
 
     public String getProfilePicturePath(AppUser userPrincipal) {
+        System.out.println("=============DEBUG============");
+        System.out.println(profileImageRoot + userPrincipal.getId() + userPrincipal.getImageExtension());
+        System.out.println("=============DEBUG============");
         return userPrincipal.hasProfilePicture() ?
                 fileUploadService.getURL(
                 profileImageRoot + userPrincipal.getId() +
