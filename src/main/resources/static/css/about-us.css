@@ -26,8 +26,8 @@
   font-size: 18px;
 }
 .hero{
-  width: 450px;
-  height:475px;
+  max-width: 450px;
+  max-height:475px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, .24), 0 1px 4px rgba(0, 0, 0, .48);
   border-radius: 20px;
   justify-items: center;
