@@ -1,7 +1,9 @@
 package com.islandcollaborative.creativeexchange.controllers;
 
 import com.islandcollaborative.creativeexchange.models.AppUser;
+import com.islandcollaborative.creativeexchange.models.Post;
 import com.islandcollaborative.creativeexchange.repositories.AppUserRepository;
+import com.islandcollaborative.creativeexchange.repositories.PostRepository;
 import com.islandcollaborative.creativeexchange.services.AppUserService;
 import com.islandcollaborative.creativeexchange.services.FileUploadService;
 import org.apache.tomcat.util.http.fileupload.impl.InvalidContentTypeException;
@@ -27,6 +29,9 @@ public class UserController {
 
     @Autowired
     AppUserRepository appUserRepository;
+
+    @Autowired
+    PostRepository postRepository;
 
     /**
      * @return the discover page
@@ -54,7 +59,9 @@ public class UserController {
     @GetMapping("/users/{userId}")
     public String getUserById(@PathVariable long userId, Model m) {
         AppUser user = appUserRepository.getOne(userId);
+        List<Post> posts = postRepository.getByAuthorOrderByCreatedAtDesc(user);
         m.addAttribute("user", user);
+        m.addAttribute("posts", posts);
         return "user-detail";
     }
 
