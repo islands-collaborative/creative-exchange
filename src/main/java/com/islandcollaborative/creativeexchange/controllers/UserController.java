@@ -100,11 +100,13 @@ public class UserController {
     public RedirectView updateProfile(String displayName,
                                       String bio,
                                       String blurb,
+                                      Boolean isCreator,
                                       HttpServletRequest request) throws IOException {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        if (bio != null && !bio.isEmpty()) userPrincipal.setBio(bio);
-        if (displayName != null && !displayName.isEmpty()) userPrincipal.setDisplayName(displayName);
-        if (blurb != null && !blurb.isEmpty()) userPrincipal.setBlurb(blurb);
+        if (bio != null || bio.isEmpty()) userPrincipal.setBio(bio);
+        if (displayName != null || displayName.isEmpty()) userPrincipal.setDisplayName(displayName);
+//        if (isCreator != null ) userPrincipal.setCreator(isCreator);
+        if (blurb != null || blurb.isEmpty()) userPrincipal.setBlurb(blurb);
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }
