@@ -84,7 +84,7 @@ public class PostService {
     public List<Post> getUserFeed(AppUser userPrincipal) {
         return postRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
                 .stream()
-                .filter(u -> userPrincipal.getFollowed().contains(userPrincipal))
+                .filter(p -> userPrincipal.getFollowed().contains(p.getAuthor()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }
