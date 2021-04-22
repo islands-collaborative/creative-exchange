@@ -5,7 +5,7 @@
 <header th:replace="fragments/layout :: header"> </header>
 <ul>
     <li th:text="'Name: ' + ${user.displayName}"></li>
-    <img th:if="${user.hasProfilePicture}" class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
+    <img th:if="${user.hasProfilePicture}" class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(user)}">
     <li th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></li>
     <li th:if="${user.bio}" th:text="'Bio: ' + ${user.bio}"></li>
     <div th:replace="fragments/follow :: follow(${user}) "></div>
