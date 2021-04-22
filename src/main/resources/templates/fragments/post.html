@@ -10,7 +10,7 @@
     </ul>
 </section>
 
-<section class="card" th:fragment="short(post)">
+<section class="card rounded-3 shadow-lg" th:fragment="short(post)">
     <div class="row">
         <th:block th:if="${userPrincipal} and ${userPrincipal.id == post.author.id}">
             <th:block th:replace="fragments/post :: usersOwnShort(${post})"></th:block>

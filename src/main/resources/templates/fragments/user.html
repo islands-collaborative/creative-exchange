@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<section th:fragment="list(users)">
+    <ul th:each="user : ${users}">
+        <li th:replace="short(${user})"></li>
+    </ul>
+</section>
+
+
+<section class="card rounded-3 shadow-lg" th:fragment="short(user)">
+    <div class="row">
+        <th:block th:if="${userPrincipal}">
+            <th:block th:replace="fragments/user :: loggedInUserShort(${user})"></th:block>
+        </th:block>
+        <th:block th:unless="${userPrincipal}">
+            <th:block th:replace="fragments/user :: loggedOutUserShort(${user})"></th:block>
+        </th:block>
+    </div>
+</section>
+
+<th:block th:fragment="loggedInUserShort(user)">
+    <div class="col-md-4">
+        <img th:if="${user.hasProfilePicture}"  class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(user)}">
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <a class="decoration-none" th:href="'/users/' + ${user.id}">
+                <h2 class="card-title" th:text="${user.displayName}"></h2>
+            </a>
+            <p th:text="${user.blurb}"></p>
+            <div th:replace="fragments/follow :: follow(${user}) "></div>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="loggedOutUserShort(user)">
+    <div class="col-md-4">
+        <img th:if="${user.hasProfilePicture}"  class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(user)}">
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <a class="decoration-none" th:href="'/users/' + ${user.id}">
+                <h2 class="card-title" th:text="${user.displayName}"></h2>
+            </a>
+            <p th:text="${user.blurb}"></p>
+        </div>
+    </div>
+</th:block>
+</body>
+
+
+</html>
