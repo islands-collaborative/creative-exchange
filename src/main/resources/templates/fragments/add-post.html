@@ -6,7 +6,7 @@
 </head>
 <body>
 <section th:fragment="addPost">
-    <div class="container">
+    <div th:if="${userPrincipal.creator}" class="container">
         <form action="/posts" method="post">
             <fieldset class="mb-3">
                 <label class="form-label" for="edit-title">Post Title:</label>
