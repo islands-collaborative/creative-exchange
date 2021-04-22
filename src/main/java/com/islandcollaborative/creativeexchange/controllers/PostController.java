@@ -87,7 +87,7 @@ public class PostController {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
         Post post = new Post(text, title, userPrincipal);
         postRepository.save(post);
-        return new RedirectView("posts");
+        return new RedirectView("posts/" + post.getId());
     }
 
     /**
