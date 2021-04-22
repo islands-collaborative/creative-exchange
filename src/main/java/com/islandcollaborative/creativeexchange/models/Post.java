@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,9 @@ public class Post {
 //    PostImage defaultImage;
     @CreationTimestamp
     LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Comment> comments;
 
     public Post() {
     }

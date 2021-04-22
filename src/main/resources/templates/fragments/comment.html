@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+
+<section th:fragment="list(comments)">
+    <div class="p-2" th:each="post : ${comments}">
+        <section th:replace="fragments/post :: short(${comment})"></section>
+    </div>
+</section>
+
+<section class="card rounded-3 shadow-sm" th:fragment="short(comment)">
+    <div class="row">
+        <th:block th:if="${userPrincipal} and ${userPrincipal.id == comment.author.id}">
+            <th:block th:replace="fragments/comment :: usersOwnShort(${comment})"></th:block>
+        </th:block>
+        <th:block th:if="${userPrincipal} and ${userPrincipal.id != comment.author.id}">
+            <th:block th:replace="fragments/comment :: loggedInShort(${comment})"></th:block>
+        </th:block>
+        <th:block th:if="${userPrincipal == null}">
+            <th:block th:replace="fragments/comment :: notLoggedInShort(${comment})"></th:block>
+        </th:block>
+    </div>
+</section>
+
+<th:block th:fragment="usersOwnShort(comment)">
+    <div class="col-md-4">
+        <div th:if="${comment.hasDefaultImage}">
+            <img class="img-fluid"
+                 role="img" focusable="false" th:src="${@postService.getDefaultImageSmallUrl(comment)}">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
+                <h2 class="card-title" th:text="${post.title}"></h2>
+            </a>
+            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
+                <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
+            </a>
+            <p class="card-text" th:text="${post.text}"></p>
+            <nav>
+                <ul>
+                    <li><a class="btn btn-primary" th:href="'posts/' + ${post.id} + '/edit'">Edit post</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="loggedInShort(comment)">
+    <div class="col-md-4">
+        <div th:if="${post.hasDefaultImage}">
+            <img class="img-fluid" role="img" focusable="false"
+                 th:src="${@postService.getDefaultImageSmallUrl(post)}">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
+                <h2 class="card-title" th:text="${post.title}"></h2>
+            </a>
+            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
+                <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
+            </a>
+            <p class="card-text" th:text="${post.text}"></p>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="notLoggedInShort(comment)">
+    <div class="col-md-4">
+        <div th:if="${post.hasDefaultImage}">
+            <img class="img-fluid" role="img" focusable="false" th:src="${@postService.getDefaultImageSmallUrl(post)}">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
+                <h2 class="card-title" th:text="${post.title}"></h2>
+            </a>
+            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
+                <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
+            </a>
+            <p class="card-text" th:text="${post.text}"></p>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>
