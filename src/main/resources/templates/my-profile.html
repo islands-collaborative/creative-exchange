@@ -14,53 +14,53 @@
                      th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
             </div>
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold lh-1" th:text="${userPrincipal.displayName}"></h1>
-                <div>
-                    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editDisplayName"
+                <h1 class="display-4 fw-bold lh-1" >
+                    <span th:text="${userPrincipal.displayName}"></span>
+                    <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#editDisplayName"
                        aria-expanded="false"
-                       aria-controls="editDisplayName"><i class="bi bi-pencil-fill"></i> Edit Display Name</a>
-                </div>
+                       aria-controls="editDisplayName"><i class="bi bi-pencil-fill"></i></a>
+                </h1>
+
                 <div class="collapse" id="editDisplayName">
                     <form class="" action="/profile?_method=put" method="post">
                         <input class="" id="editDisplayNameInput" name="displayName"
                                th:value="${userPrincipal.displayName}"></input>
-                        <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
+                        <input class="btn btn-outline-secondary btn-sm" type="submit" value="Submit Changes"></input>
                     </form>
                 </div>
 
-                <h2 class="lead" th:if="${userPrincipal.blurb}" th:text="${userPrincipal.blurb}"></h2>
+                    <h2 class="lead" th:if="${userPrincipal.blurb}" ></h2>
                 <h2 class="lead" th:unless="${userPrincipal.blurb}">Headline: Add a short something about yourself
                     below! </h2>
-
-                <div>
-                    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editHeadline"
+                <span th:text="${userPrincipal.blurb}"></span>
+                    <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#editHeadline"
                        aria-expanded="false"
-                       aria-controls="editHeadline"><i class="bi bi-pencil-fill"></i> Edit Your Headline</a>
-                </div>
+                       aria-controls="editHeadline"><i class="bi bi-pencil-fill"></i> </a>
+
                 <div class="collapse" id="editHeadline">
                     <form class="" action="/profile?_method=put" method="post">
                         <textarea class="" id="editHeadlineInput" name="blurb"
                                   th:value="${userPrincipal.blurb}"></textarea>
-                        <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
+                        <input class="btn btn-outline-secondary btn-sm" type="submit" value="Submit Changes"></input>
                     </form>
                 </div>
 
-                <section class="p-2 lead" th:if="${userPrincipal.bio}" th:text="${userPrincipal.blurb}"></section>
+                <section class="p-2 lead" th:if="${userPrincipal.bio}" ></section>
                 <section class="p-2 lead" th:unless="${userPrincipal.bio}">Bio: Add your bio below!</section>
+                <span th:text="${userPrincipal.blurb}"></span>
+                    <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#editBio" aria-expanded="false"
+                       aria-controls="editBio"><i class="bi bi-pencil-fill"></i></a>
 
-                <div>
-                    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editBio" aria-expanded="false"
-                       aria-controls="editBio"><i class="bi bi-pencil-fill"></i> Edit Your Bio</a>
-                </div>
                 <div class="collapse" id="editBio">
                     <form class="" action="/profile?_method=put" method="post">
                         <textarea class="" id="editBioInput" name="bio" th:value="${userPrincipal.bio}"></textarea>
-                        <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
+                        <input class="btn btn-outline-secondary btn-sm" type="submit" value="Submit Changes"></input>
                     </form>
                 </div>
 
                 <h3 class="lead" th:if="${userPrincipal.creator}">Creator: &#10004;</h3>
                 <h3 class="lead" th:unless="${userPrincipal.creator}">Creator: &#10006;</h3>
+
             </div>
         </div>
     </div>
@@ -71,14 +71,14 @@
                   th:if="${userPrincipal.creator}">
                 <fieldset>
                     <input class="btn-check" id="btn-check" type="submit" value="">
-                    <label class="btn btn-outline-primary" for="btn-check">Click to turn off creator mode</label>
+                    <label class="btn btn-outline-secondary" for="btn-check">Click to turn off creator mode</label>
                 </fieldset>
             </form>
             <form class="" action="/profile/is-creator?_method=PUT" method="post"
                   th:unless="${userPrincipal.creator}">
                 <fieldset>
                     <input class="btn-check" id="btn-check-2" type="submit" value="">
-                    <label class="btn btn-primary" for="btn-check-2">Click to turn on creator mode</label>
+                    <label class="btn btn-outline-secondary" for="btn-check-2">Click to turn on creator mode</label>
                 </fieldset>
             </form>
         </div>
@@ -114,7 +114,7 @@
     </div>
 
     <div class="mb-2">
-        <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#addPost" aria-expanded="false"
+        <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#addPost" aria-expanded="false"
            aria-controls="addPost">Add new post</a>
     </div>
     <div class="collapse" id="addPost">

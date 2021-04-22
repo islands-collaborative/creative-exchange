@@ -10,7 +10,7 @@
         <section th:replace="fragments/image :: postImageCarousel(${post})"></section>
 
         <div th:if="${userPrincipal} and ${userPrincipal.id == post.author.id}">
-            <a class="btn btn-primary" th:href="'/posts/' + ${post.id} + '/edit'">
+            <a class="btn btn-secondary" th:href="'/posts/' + ${post.id} + '/edit'">
                 <i class="bi bi-pencil-fill"></i> Edit Post
             </a>
         </div>
