@@ -4,8 +4,7 @@
 <body>
 <header th:replace="fragments/layout :: header"></header>
 
-<main>
-    <div class="container">
+<main class="container px-4 py-5">
         <h1 th:text="'Post by ' + ${post.author.displayName}"></h1>
 
         <section th:replace="fragments/image :: postImageCarousel(${post})"></section>
@@ -17,8 +16,6 @@
         </div>
 
         <h2 th:text="'Description: ' + ${post.text}"></h2>
-
-    </div>
 </main>
 <footer th:replace="fragments/layout :: footer"></footer>
 </body>

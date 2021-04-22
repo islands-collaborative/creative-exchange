@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head('User Details')">
 <body>
 <header th:replace="fragments/layout :: header"> </header>
-<main class="container shadow-lg">
+<main class="container px-4 py-5">
     <div class="clearfix py-3">
         <div class="col-md-5 float-md-end mb-3 ms-md-3">
             <img th:if="${user.hasProfilePicture}" class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(user)}">

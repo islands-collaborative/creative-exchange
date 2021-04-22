@@ -5,8 +5,7 @@
 </head>
 <body>
 <header th:replace="fragments/layout :: header"></header>
-<main>
-
+<main class="container px-4 py-5">
     <div class="p-3">
         <a class="btn btn-outline-secondary btn-lg" href="/messages">Back to Inbox</a>
         <h1 class="text-center " th:text="'Messages with ' + ${correspondent.displayName}"></h1>
