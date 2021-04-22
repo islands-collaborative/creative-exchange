@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head('Welcome to the creative exchange')"></head>
+<body>
+<header th:replace="fragments/layout :: header"> </header>
+
+<main class="container px-4 py-5">
+    <h1></h1>
+    <div class="container col-xxl-8">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="/assets/brush.jpg " class="d-block mx-lg-auto img-fluid" alt width="700" height="500"  >
+            </div>
+
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold lh-1 mb-3">Creative Exchange</h2>
+                <p class="lead">Where creatives display their creations. where you come to discover creatives.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a class="nav-link active btn btn-primary btn-lg px-4 me-md-2" href="/login">Log In</a>
+                    <a class="nav-link active btn btn-outline-secondary btn-lg px-4" href="/discover">Discover</a>
+                </div>
+            </div>
+            <h2>Top Creators</h2>
+            <ul th:each="creator: ${creators}">
+                <li th:replace="fragments/user :: short(${creator})"></li>
+            </ul>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/layout :: footer"> </footer>
+</body>
+</html>

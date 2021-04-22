@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="d-flex flex-column h-100">
+<header th:fragment="header">
+
+
+    <nav th:replace="${userPrincipal == null} ?
+    ~{fragments/logged-nav :: loggedOut} :
+    ~{fragments/logged-nav :: loggedIn}">
+
+    </nav>
+</header>
+
+<nav th:fragment="loggedIn">
+</nav>
+
+<nav th:fragment="loggedOut">
+</nav>
+
+<footer class="footer mt-auto bg-light" th:fragment="footer">
+    <a href="/about">About us</a>
+    <a href="https://github.com/islands-collaborative/creative-exchange">Git Hub</a>
+    <a href="/privacy">Privacy policy</a>
+</footer>
+</body>
+</html>

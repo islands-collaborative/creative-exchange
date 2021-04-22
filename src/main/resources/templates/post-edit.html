@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head('Post: ' + ${post.title})"></head>
+<body>
+<header th:replace="fragments/layout :: header"></header>
+
+<main class="container px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded-3 border shadow-lg">
+        <div>
+            <a class="btn btn-outline-secondary" th:href="'/posts/' + ${post.id}">
+                Go to Public View</a>
+        </div>
+        <h1 th:text="${post.title}"></h1>
+        <div>
+            <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#editTitle" aria-expanded="false"
+               aria-controls="editTitle"><i class="bi bi-pencil-fill"></i> Edit Title</a>
+        </div>
+        <div class="collapse" id="editTitle">
+            <form class="row gx-3" th:action="'/posts/' + ${post.id} + '?_method=put'" method="post">
+                <input class="col-md-2" id="editTitleInput" name="title" th:value="${post.title}"></input>
+                <input class="col-md-2 btn btn-outline-secondary btn-sm" type="submit" value="Submit Changes"></input>
+            </form>
+        </div>
+        <h2 th:text="'Post by ' + ${post.author.displayName}"></h2>
+        <h3 th:text="'Posted on ' + ${post.createdAt}"></h3>
+
+
+        <section th:text="'Description: ' + ${post.text}"></section>
+        <div>
+            <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false"
+               aria-controls="editDescription"><i class="bi bi-pencil-fill"> Edit Description</i></a>
+        </div>
+        <div class="collapse" id="editDescription">
+            <form class="row gx-3" th:action="'/posts/' + ${post.id} + '?_method=put'" method="post">
+                <textarea class="col-md-6" id="editDescriptionTextarea" name="text" th:value="${post.text}"></textarea>
+                <input class="col-md-2 btn btn-outline-secondary btn-sm" type="submit" value="Submit Changes"></input>
+            </form>
+        </div>
+        <section th:replace="fragments/image :: editPostImages(${post})"></section>
+        <section th:replace="fragments/image :: addPostImages(${post})"></section>
+
+    </div>
+</main>
+<footer th:replace="fragments/layout :: footer"></footer>
+</body>
+</html>

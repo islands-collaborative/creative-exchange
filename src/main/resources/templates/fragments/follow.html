@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<div th:fragment="follow(user)">
+  <th:block th:if="${userPrincipal} and ${userPrincipal.id != user.id}">
+    <th:block th:if="${userPrincipal} and ${userPrincipal.followed.contains(user)}">
+    <form th:action="'/follow/' + ${user.id} + '?_method=delete'" method="post">
+      <input class="btn btn-outline-secondary" type="submit" value="Unfollow">
+    </form>
+    </th:block>
+    <th:block th:if="${userPrincipal} and ${false == user.followers.contains(userPrincipal)}">
+      <form th:action="'/follow/' + ${user.id} + '?_method=put'" method="post">
+        <input class="btn btn-secondary" type="submit" value="Follow">
+      </form>
+    </th:block>
+  </th:block>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head('Discover')">
+<body>
+<header th:replace="fragments/layout :: header"> </header>
+<main class="container px-4 py-5">
+<h1>Discover Creators</h1>
+<ul th:each="user: ${users}">
+
+    <li th:replace="fragments/user :: short(${user})"></li>
+<!--    <ul>-->
+<!--        <li th:text="'Name: ' + ${user.displayName}"></li>-->
+
+<!--        <img th:if="${user.hasProfilePicture}"  class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(user)}">-->
+<!--        <li th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></li>-->
+<!--        <li><a th:href="'/users/' + ${user.id}">See Profile</a></li>-->
+<!--        <div th:replace="fragments/follow :: follow(${user}) "></div>-->
+
+<!--    </ul>-->
+
+</ul>
+</main>
+
+<footer th:replace="fragments/layout :: footer"></footer>
+
+</body>
+</html>

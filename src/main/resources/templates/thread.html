@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head th:replace="fragments/head :: head('Message')"></head>
+</head>
+<body>
+<header th:replace="fragments/layout :: header"></header>
+<main class="container px-4 py-5">
+    <div class="p-3">
+        <a class="btn btn-outline-secondary btn-lg" href="/messages">Back to Inbox</a>
+        <h1 class="text-center " th:text="'Messages with ' + ${correspondent.displayName}"></h1>
+    </div>
+    <div th:replace="fragments/message :: threadList(${messages})"></div>
+    <div class="justify-content-center align-self-center">
+        <form action="/messages" method="post" >
+            <div class="row gx-3 justify-content-center">
+                <fieldset class="form-floating col-md-6">
+                <textarea class="form-control" name="text" id="textarea-message" cols="30" rows="10" placeholder="Respond..."></textarea>
+<!--                <input type="textarea" name="text" >-->
+                </fieldset>
+                <input class="col-md-2 btn btn-outline-secondary btn-lg" type="submit" value="Send">
+                <input type="hidden" name="userId" th:value="${correspondent.id}">
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="fragments/layout :: footer"></footer>
+</body>
+</html>

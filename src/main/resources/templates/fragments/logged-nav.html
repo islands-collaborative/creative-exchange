@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<!--<nav th:fragment="nav">-->
+<!--    <th:block th:if="${userPrincipal}">-->
+<!--        <th:block th:replace="loggedIn"></th:block>-->
+<!--    </th:block>-->
+<!--    <th:block th:if="${userPrincipal == null}">-->
+<!--        <th:block th:replace="fragments/log-nav :: loggedOut"></th:block>-->
+<!--    </th:block>-->
+
+
+
+
+
+    <nav class="navbar navbar-dark bg-dark" aria-label="navbar" th:fragment="loggedIn">
+        <div class="container-fluid">
+            <a href="" class="navbar-brand">Creative Exchange</a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01"
+                    aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse " id="navbarsExample01">
+                <ul class="navbar-nav me-auto mb-2">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/feed">Feed</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/discover">Discover</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/messages">Inbox</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    <li class="navbar-brand" th:text="${userPrincipal.username}"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+<nav class="navbar navbar-dark bg-dark" aria-label="navbar" th:fragment="loggedOut">
+    <div class="container-fluid">
+        <a href="" class="navbar-brand">Creative Exchange</a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01"
+                aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse " id="navbarsExample01">
+            <ul class="navbar-nav me-auto mb-2">
+                <li class="nav-item "><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item "><a class="nav-link" href="/login">Login</a></li>
+                <li class="nav-item "><a class="nav-link" href="/signup">Signup</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

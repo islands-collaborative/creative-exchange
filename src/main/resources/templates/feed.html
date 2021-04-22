@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head('Feed')">
+</head>
+<body>
+<header th:replace="fragments/layout :: header"> </header>
+<main class="container px-4 py-5">
+    <div class="container">
+        <h1>Your feed</h1>
+        <section th:replace="fragments/post :: list(${feed})"></section>
+    </div>
+</main>
+<footer th:replace="fragments/layout :: footer"> </footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-flow: column;
+
+}
+
+header{
+  flex-shrink: 0;
+
+}
+
+ul {
+list-style: none;
+}
+
+a {
+ text-decoration: none;
+ color: #0d98ba;
+}
