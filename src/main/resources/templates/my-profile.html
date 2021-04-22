@@ -29,6 +29,9 @@
                     </form>
                 </div>
 
+                <h3 class="lead" th:if="${userPrincipal.creator}">Creator: &#10004;</h3>
+                <h3 class="lead" th:unless="${userPrincipal.creator}">Creator: &#10006;</h3>
+
                     <h2 class="lead" th:if="${userPrincipal.blurb}" ></h2>
                 <h2 class="lead" th:unless="${userPrincipal.blurb}">Headline: Add a short something about yourself
                     below! </h2>
@@ -63,6 +66,16 @@
 
             </div>
         </div>
+    </div>
+    <div class="b-example-divider"></div>
+    <div class="col-10 mx-auto col-lg-5">
+        <div class="p-3">
+            <form class="" action="/profile/is-creator?_method=DELETE" method="post"
+                  th:if="${userPrincipal.creator}">
+                <fieldset>
+                    <input class="btn-check" id="btn-check" type="submit" value="">
+                    <label class="btn btn-outline-primary" for="btn-check">Click to turn off creator mode</label>
+                </fieldset>
     </div>
     <div class="b-example-divider"></div>
     <div class="col-10 mx-auto col-lg-5">

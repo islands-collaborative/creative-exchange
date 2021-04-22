@@ -37,3 +37,9 @@ An example of the environment files that need to be set can be found in the [`.e
 ## User Stories
 
 -[Link](docs/user-stories.md)
+
+## Documentation
+
+- [Wireframe](docs/wireframe.jpg)
+
+- [Domain Model and Entity Relationship Diagram](docs/dmain-model.jpg)
