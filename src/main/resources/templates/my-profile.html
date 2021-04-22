@@ -6,14 +6,14 @@
 <body>
 <header th:replace="fragments/layout :: header"></header>
 <main class="container px-4 py-2">
-    <div class="container col-xxl-8">
+    <div class="container col-xxl-10">
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded-3 border shadow-lg">
             <div class="col-10 col-sm-8 col-lg-6">
                 <img class="d-block mx-lg-auto img-fluid" loading="lazy"
                      th:if="${userPrincipal.hasProfilePicture}"
                      th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <h1 class="display-4 fw-bold lh-1" th:text="${userPrincipal.displayName}"></h1>
                 <div>
                     <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editDisplayName"
@@ -21,15 +21,15 @@
                        aria-controls="editDisplayName"><i class="bi bi-pencil-fill"></i> Edit Display Name</a>
                 </div>
                 <div class="collapse" id="editDisplayName">
-                    <form class="" th:action="'/profile?_method=put'" method="post">
+                    <form class="" action="/profile?_method=put" method="post">
                         <input class="" id="editDisplayNameInput" name="displayName"
                                th:value="${userPrincipal.displayName}"></input>
                         <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
                     </form>
                 </div>
 
-                <h2 class="lead" th:if="${userPrincipal.blurb}" th:text="'Blurb: ' + ${userPrincipal.blurb}"></h2>
-                <h2 class="lead" th:unless="${userPrincipal.blurb}">Blurb: Add a short something about yourself
+                <h2 class="lead" th:if="${userPrincipal.blurb}" th:text="${userPrincipal.blurb}"></h2>
+                <h2 class="lead" th:unless="${userPrincipal.blurb}">Headline: Add a short something about yourself
                     below! </h2>
 
                 <div>
@@ -38,7 +38,7 @@
                        aria-controls="editHeadline"><i class="bi bi-pencil-fill"></i> Edit Your Headline</a>
                 </div>
                 <div class="collapse" id="editHeadline">
-                    <form class="" th:action="'/profile?_method=put'" method="post">
+                    <form class="" action="/profile?_method=put" method="post">
                         <textarea class="" id="editHeadlineInput" name="blurb"
                                   th:value="${userPrincipal.blurb}"></textarea>
                         <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
@@ -50,10 +50,10 @@
 
                 <div>
                     <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editBio" aria-expanded="false"
-                       aria-controls="editBio"><i class="bi bi-pencil-fill"></i> Edit Your Headline</a>
+                       aria-controls="editBio"><i class="bi bi-pencil-fill"></i> Edit Your Bio</a>
                 </div>
                 <div class="collapse" id="editBio">
-                    <form class="" th:action="'/profile?_method=put'" method="post">
+                    <form class="" action="/profile?_method=put" method="post">
                         <textarea class="" id="editBioInput" name="bio" th:value="${userPrincipal.bio}"></textarea>
                         <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
                     </form>
