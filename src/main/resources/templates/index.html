@@ -16,11 +16,14 @@
                 <h2 class="display-5 fw-bold lh-1 mb-3">Creative Exchange</h2>
                 <p class="lead">Where creatives display their creations. where you come to discover creatives.</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a class="nav-link active btn btn-secondary btn-lg px-4 me-md-2" href="/login">Log In</a>
-                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">Discover</button>
+                    <a class="nav-link active btn btn-primary btn-lg px-4 me-md-2" href="/login">Log In</a>
+                    <a class="nav-link active btn btn-outline-secondary btn-lg px-4" href="/discover">Discover</a>
                 </div>
             </div>
-
+            <h2>Top Creators</h2>
+            <ul th:each="creator: ${creators}">
+                <li th:replace="fragments/user :: short(${creator})"></li>
+            </ul>
         </div>
     </div>
 </main>
