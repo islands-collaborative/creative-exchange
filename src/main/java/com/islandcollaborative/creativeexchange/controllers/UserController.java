@@ -4,6 +4,7 @@ import com.islandcollaborative.creativeexchange.models.AppUser;
 import com.islandcollaborative.creativeexchange.repositories.AppUserRepository;
 import com.islandcollaborative.creativeexchange.services.AppUserService;
 import com.islandcollaborative.creativeexchange.services.FileUploadService;
+import org.apache.tomcat.util.http.fileupload.impl.InvalidContentTypeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -111,11 +112,15 @@ public class UserController {
     }
 
     @PutMapping("/profile/image")
-    public RedirectView updateProfile( @RequestParam("image") MultipartFile multipartFile,
+    public RedirectView updateProfileImage( @RequestParam("image") MultipartFile multipartFile,
                                       HttpServletRequest request) throws IOException {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
 
-        appUserService.updateProfilePicture(userPrincipal, multipartFile);
+        try {
+            appUserService.updateProfilePicture(userPrincipal, multipartFile);
+        } catch (InvalidContentTypeException e) {
+            return new RedirectView("/profile?error=content_type");
+        }
         appUserRepository.save(userPrincipal);
         return new RedirectView("/profile");
     }
