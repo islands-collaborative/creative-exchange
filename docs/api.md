@@ -39,7 +39,7 @@ Right now this is a rough outline of the planned routes for our application's AP
 ## Posts
 
 - `GET /posts` : Gets all posts by most recent
-- `get /posts/{postId}`: Requires authentication. returns the post identified.
+- `get /posts/{postId}`: returns the post identified.
 - `POST /posts`: Requires authentication. Creates a new post. Redirects to the user's private-facing profile page
   at `/profile`. Alternative redirect: `/posts/{postId}`. Alternatively redirect to their public-facing profile page
   at `/users/{userId}`.
