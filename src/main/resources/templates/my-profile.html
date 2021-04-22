@@ -106,8 +106,10 @@
     </form>
 
     <div class="mb-2">
+        <div th:if="${userPrincipal.creator}" class="container">
         <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#addPost" aria-expanded="false"
            aria-controls="addPost">Add new post</a>
+        </div>
     </div>
     <div class="collapse" id="addPost">
         <h2>Add Post</h2>
