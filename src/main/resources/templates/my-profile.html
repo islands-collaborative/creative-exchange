@@ -5,15 +5,15 @@
 </head>
 <body>
 <header th:replace="fragments/layout :: header"></header>
-<main class="container px-4 py-2">
-    <div class="container col-xxl-10">
+<main class="container px-4 py-2 col-xxl-9 col-xl-10">
+    <div class="container">
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded-3 border shadow-lg">
             <div class="col-10 col-sm-8 col-lg-6">
                 <img class="d-block mx-lg-auto img-fluid" loading="lazy"
                      th:if="${userPrincipal.hasProfilePicture}"
                      th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <h1 class="display-4 fw-bold lh-1" th:text="${userPrincipal.displayName}"></h1>
                 <div>
                     <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editDisplayName"
