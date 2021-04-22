@@ -133,8 +133,8 @@ public class UserController {
         appUserRepository.save(userPrincipal);
 
         return new RedirectView("/users/" + userId);
-
     }
+
     @DeleteMapping("/follow/{id}")
     public RedirectView unfollowUser (HttpServletRequest request, @PathVariable long id){
 
