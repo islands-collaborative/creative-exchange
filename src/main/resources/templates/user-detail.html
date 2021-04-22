@@ -3,22 +3,21 @@
 <head th:replace="fragments/head :: head('User Details')">
 <body>
 <header th:replace="fragments/layout :: header"> </header>
-<ul>
-    <li th:text="'Name: ' + ${user.displayName}"></li>
-    <img th:if="${user.hasProfilePicture}" class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(user)}">
-    <li th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></li>
-    <li th:if="${user.bio}" th:text="'Bio: ' + ${user.bio}"></li>
-    <div th:replace="fragments/follow :: follow(${user}) "></div>
-    <li><a th:href="'/users/' + ${user.id} + '/messages'" th:text="'Message ' + ${user.displayName}"></a></li>
+<main class="container shadow-lg">
+    <div class="clearfix py-3">
+        <div class="col-md-5 float-md-end mb-3 ms-md-3">
+            <img th:if="${user.hasProfilePicture}" class="d-block mx-lg-auto img-fluid" th:src="${@appUserService.getProfilePicturePath(user)}">
+        </div>
 
+        <h1 th:text="${user.displayName}"></h1>
+        <h2 th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></h2>
+        <p th:if="${user.bio}" th:text="'Bio: ' + ${user.bio}"></p>
+        <div th:replace="fragments/follow :: follow(${user}) "></div>
+        <a class="btn btn-primary" th:href="'/users/' + ${user.id} + '/messages'" th:text="'Message ' + ${user.displayName}"></a>
 
-
-
-
-
-<!--    profile picture-->
-</ul>
-
-<!-- to do list posts-->
+        <section th:replace="fragments/post :: list(${user.posts})"></section>
+    </div>
+</main>
+<footer th:replace="fragments/layout :: footer"></footer>
 </body>
 </html>
