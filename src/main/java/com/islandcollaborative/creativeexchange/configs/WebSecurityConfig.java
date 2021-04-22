@@ -3,6 +3,7 @@ package com.islandcollaborative.creativeexchange.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,9 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/signup", "/login", "/about").permitAll()
-               .antMatchers("/css/**").permitAll()
+                .antMatchers("/", "/privacy", "/about").permitAll()
+                .antMatchers("/signup", "/login").permitAll()
+                .antMatchers(HttpMethod.GET,"/discover", "/users/{userId}").permitAll()
+                .antMatchers(HttpMethod.GET,"/posts", "/posts/{postId}").permitAll()
+                .antMatchers("/css/**").permitAll()
                 .antMatchers("/assets/**").permitAll()
                 .anyRequest().authenticated()
 
