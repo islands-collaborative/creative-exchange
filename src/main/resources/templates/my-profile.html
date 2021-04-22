@@ -4,85 +4,126 @@
 
 </head>
 <body>
-<header th:replace="fragments/layout :: header"> </header>
-    <main>
-        <h1>My Profile</h1>
-        <div class="container col-xxl-8 px-4 py-5">
-            <div class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded-3 border shadow-lg">
-                <div class=" col-10 col-sm-8 col-lg-6">
-                    <img  class="d-block mx-lg-auto img-fluid" width="700" height="500" loading="lazy"
-                          th:if="${userPrincipal.hasProfilePicture}" th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
+<header th:replace="fragments/layout :: header"></header>
+<main class="container px-4 py-2 col-xxl-9 col-xl-10">
+    <div class="container">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded-3 border shadow-lg">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img class="d-block mx-lg-auto img-fluid" loading="lazy"
+                     th:if="${userPrincipal.hasProfilePicture}"
+                     th:src="${@appUserService.getProfilePicturePath(userPrincipal)}">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold lh-1" th:text="${userPrincipal.displayName}"></h1>
+                <div>
+                    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editDisplayName"
+                       aria-expanded="false"
+                       aria-controls="editDisplayName"><i class="bi bi-pencil-fill"></i> Edit Display Name</a>
                 </div>
-                <div class="col-lg-6">
-                    <ul class="">
-                        <li class="display-4 fw-bold lh-1" th:text="'Display Name: ' + ${userPrincipal.displayName}"></li>
-                        <li class="lead" th:text="'Username: ' + ${userPrincipal.username}"></li>
-                        <li class="lead" th:if="${userPrincipal.bio}" th:text="'Bio: ' + ${userPrincipal.bio}"></li>
-                        <li class="lead" th:unless="${userPrincipal.bio}">Bio: Add your bio below!</li>
-                        <li class="lead" th:if="${userPrincipal.blurb}" th:text="'Blurb: ' + ${userPrincipal.blurb}"></li>
-                        <li class="lead" th:unless="${userPrincipal.blurb}" >Blurb: Add a short something about yourself below!</li>
-                        <li class="lead" th:if="${userPrincipal.creator}">Creator: &#10004;</li>
-                        <li class="lead" th:unless="${userPrincipal.creator}">Creator: &#10006;</li>
-                    </ul>
+                <div class="collapse" id="editDisplayName">
+                    <form class="" action="/profile?_method=put" method="post">
+                        <input class="" id="editDisplayNameInput" name="displayName"
+                               th:value="${userPrincipal.displayName}"></input>
+                        <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
+                    </form>
                 </div>
+
+                <h2 class="lead" th:if="${userPrincipal.blurb}" th:text="${userPrincipal.blurb}"></h2>
+                <h2 class="lead" th:unless="${userPrincipal.blurb}">Headline: Add a short something about yourself
+                    below! </h2>
+
+                <div>
+                    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editHeadline"
+                       aria-expanded="false"
+                       aria-controls="editHeadline"><i class="bi bi-pencil-fill"></i> Edit Your Headline</a>
+                </div>
+                <div class="collapse" id="editHeadline">
+                    <form class="" action="/profile?_method=put" method="post">
+                        <textarea class="" id="editHeadlineInput" name="blurb"
+                                  th:value="${userPrincipal.blurb}"></textarea>
+                        <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
+                    </form>
+                </div>
+
+                <section class="p-2 lead" th:if="${userPrincipal.bio}" th:text="${userPrincipal.blurb}"></section>
+                <section class="p-2 lead" th:unless="${userPrincipal.bio}">Bio: Add your bio below!</section>
+
+                <div>
+                    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#editBio" aria-expanded="false"
+                       aria-controls="editBio"><i class="bi bi-pencil-fill"></i> Edit Your Bio</a>
+                </div>
+                <div class="collapse" id="editBio">
+                    <form class="" action="/profile?_method=put" method="post">
+                        <textarea class="" id="editBioInput" name="bio" th:value="${userPrincipal.bio}"></textarea>
+                        <input class="btn btn-outline-primary btn-sm" type="submit" value="Submit Changes"></input>
+                    </form>
+                </div>
+
+                <h3 class="lead" th:if="${userPrincipal.creator}">Creator: &#10004;</h3>
+                <h3 class="lead" th:unless="${userPrincipal.creator}">Creator: &#10006;</h3>
             </div>
         </div>
-        <div class="b-example-divider"></div>
-        <div class="col-10 mx-auto col-lg-5">
-            <form class="mb-3 form-check form-switch" action="/profile/is-creator?_method=DELETE" method="post"
-            th:if="${userPrincipal.creator}">
-                <div>
-                    <fieldset>
-                        <input  class="btn-check"  id="btn-check" type="submit" value="">
-                        <label class="btn btn-primary" for="btn-check">Click to turn off creator mode</label>
-                    </fieldset>
-                </div>
+    </div>
+    <div class="b-example-divider"></div>
+    <div class="col-10 mx-auto col-lg-5">
+        <div class="p-3">
+            <form class="" action="/profile/is-creator?_method=DELETE" method="post"
+                  th:if="${userPrincipal.creator}">
+                <fieldset>
+                    <input class="btn-check" id="btn-check" type="submit" value="">
+                    <label class="btn btn-outline-primary" for="btn-check">Click to turn off creator mode</label>
+                </fieldset>
             </form>
-
-            <form class="mb-3 form-check form-switch" action="/profile/is-creator?_method=PUT" method="post"
+            <form class="" action="/profile/is-creator?_method=PUT" method="post"
                   th:unless="${userPrincipal.creator}">
-                <div>
-                    <fieldset>
-                        <input class="btn-check" id="btn-check-2" type="submit" value="">
-                        <label class="btn btn-primary" for="btn-check-2">Click to turn on creator mode</label>
-                    </fieldset>
-                </div>
-            </form>
-
-
-
-            <form class="p-5 border rounded-3 bg-light" action="/profile?_method=PUT" method="post" enctype="multipart/form-data">
-                <fieldset class="form-floating mb-3">
-                    <input class="form-control" id="input-display-name" type="text" name="displayName">
-                    <label class="floatingInput" for="input-display-name">Display Name</label>
+                <fieldset>
+                    <input class="btn-check" id="btn-check-2" type="submit" value="">
+                    <label class="btn btn-primary" for="btn-check-2">Click to turn on creator mode</label>
                 </fieldset>
-
-                <fieldset class="form-floating mb-3">
-                    <input class="form-control" id="input-blurb" type="text" name="blurb">
-                    <label class="floatingInput" for="input-blurb">Blurb</label>
-                </fieldset>
-                <fieldset class="form-floating mb-3">
-                    <textarea class="form-control" name="bio" id="textarea-bio" cols="30" rows="10"></textarea>
-                    <label class="floatingInput" for="textarea-bio">Bio</label>
-                </fieldset>
-                <input type="submit" value="Update">
-            </form>
-
-            <form action="/profile/image?_method=PUT" method="post" enctype="multipart/form-data">
-                <fieldset class="mb-3">
-                    <label for="image-upload">Profile picture</label>
-                    <input class="form-control form-control-sm"
-                            name="image"
-                           id="image-upload"
-                           type="file" accept="image/*"></input>
-                </fieldset>
-                <input type="submit" value="Change Profile Image"></input>
             </form>
         </div>
 
-        <section  th:replace="fragments/add-post :: addPost"></section>
-    </main>
+        <!--        <form class="p-4 border rounded-3 bg-light" action="/profile?_method=PUT" method="post"-->
+        <!--              enctype="multipart/form-data">-->
+        <!--            <fieldset class="form-floating mb-3">-->
+        <!--                <input class="form-control" id="input-display-name" type="text" name="displayName">-->
+        <!--                <label class="floatingInput" for="input-display-name">Display Name</label>-->
+        <!--            </fieldset>-->
+
+        <!--            <fieldset class="form-floating mb-3">-->
+        <!--                <input class="form-control" id="input-blurb" type="text" name="blurb">-->
+        <!--                <label class="floatingInput" for="input-blurb">Blurb</label>-->
+        <!--            </fieldset>-->
+        <!--            <fieldset class="form-floating mb-3">-->
+        <!--                <textarea class="form-control" name="bio" id="textarea-bio" cols="30" rows="10"></textarea>-->
+        <!--                <label class="floatingInput" for="textarea-bio">Bio</label>-->
+        <!--            </fieldset>-->
+        <!--            <input type="submit" value="Update">-->
+        <!--        </form>-->
+
+        <form action="/profile/image?_method=PUT" method="post" enctype="multipart/form-data">
+            <fieldset class="mb-3">
+                <label for="image-upload">Profile picture</label>
+                <input class="form-control form-control-sm"
+                       name="image"
+                       id="image-upload"
+                       type="file" accept="image/*"></input>
+            </fieldset>
+            <input type="submit" value="Change Profile Image"></input>
+        </form>
+    </div>
+
+    <div class="mb-2">
+        <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#addPost" aria-expanded="false"
+           aria-controls="addPost">Add new post</a>
+    </div>
+    <div class="collapse" id="addPost">
+        <h2>Add Post</h2>
+        <section th:replace="fragments/add-post :: addPost"></section>
+    </div>
+
+    <section th:replace="fragments/post :: list(${userPrincipal.posts})"></section>
+</main>
 <footer th:replace="fragments/layout :: footer"></footer>
 
 </body>
-</html>
