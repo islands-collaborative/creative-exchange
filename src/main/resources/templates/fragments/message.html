@@ -59,7 +59,7 @@
         <th:block th:replace="fragments/message :: inboxFromView(${message})"></th:block>
     </th:block>
     <th:block th:if="${userPrincipal} and ${userPrincipal.id == message.recipient.id}">
-        <th:block th:replace="fragments/message :: inboxFromView(${message})"></th:block>
+        <th:block th:replace="fragments/message :: inboxToView(${message})"></th:block>
     </th:block>
     <th:block th:if="${userPrincipal == null}">
         <th:block th:replace="fragments/message :: notLoggedInShort(${post})"></th:block>
