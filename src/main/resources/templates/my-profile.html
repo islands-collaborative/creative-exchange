@@ -45,7 +45,7 @@
                     </form>
                 </div>
 
-                <section class="p-2 lead" th:if="${userPrincipal.bio}" th:text="${userPrincipal.bio}"></section>
+                <section class="p-2 lead" th:if="${userPrincipal.bio}" th:text="${userPrincipal.blurb}"></section>
                 <section class="p-2 lead" th:unless="${userPrincipal.bio}">Bio: Add your bio below!</section>
 
                 <div>
