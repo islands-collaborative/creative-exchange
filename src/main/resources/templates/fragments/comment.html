@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="">
 <head>
 </head>
 <body>
 
-<section th:fragment="list(comments)">
-    <div class="p-2" th:each="post : ${comments}">
+<section th:fragment="list(post)">
+    <div class="p-2" th:each="post : ${post.comments}">
         <section th:replace="fragments/post :: short(${comment})"></section>
     </div>
 </section>
+
+<section th:fragment="addComment(post)">
+    <form th:action="'/posts/' + ${post.id} + '/comments'" method="post">
+        <textarea name="text"></textarea>
+        <input class="btn btn-outline-primary btn-primary-outline" type="submit" value="Post comment">
+    </form>
+</section>
+
 
 <section class="card rounded-3 shadow-sm" th:fragment="short(comment)">
     <div class="row">
@@ -25,67 +33,30 @@
 </section>
 
 <th:block th:fragment="usersOwnShort(comment)">
-    <div class="col-md-4">
-        <div th:if="${comment.hasDefaultImage}">
-            <img class="img-fluid"
-                 role="img" focusable="false" th:src="${@postService.getDefaultImageSmallUrl(comment)}">
-        </div>
+    <div class="card-body">
+        <h2 class="card-title">Post by
+            <a class="text-decoration-none" th:text="${comment.title}" th:href="'/users/' + ${comment.author.id}"></a>
+        </h2>
+        <p class="card-text" th:text="${comment.text}"></p>
     </div>
-    <div class="col-md-8">
-        <div class="card-body">
-            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
-                <h2 class="card-title" th:text="${post.title}"></h2>
-            </a>
-            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
-                <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
-            </a>
-            <p class="card-text" th:text="${post.text}"></p>
-            <nav>
-                <ul>
-                    <li><a class="btn btn-primary" th:href="'posts/' + ${post.id} + '/edit'">Edit post</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <!-- Edit post -->
 </th:block>
 
 <th:block th:fragment="loggedInShort(comment)">
-    <div class="col-md-4">
-        <div th:if="${post.hasDefaultImage}">
-            <img class="img-fluid" role="img" focusable="false"
-                 th:src="${@postService.getDefaultImageSmallUrl(post)}">
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card-body">
-            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
-                <h2 class="card-title" th:text="${post.title}"></h2>
-            </a>
-            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
-                <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
-            </a>
-            <p class="card-text" th:text="${post.text}"></p>
-        </div>
+    <div class="card-body">
+        <h2 class="card-title">Post by
+            <a class="text-decoration-none" th:text="${comment.title}" th:href="'/users/' + ${comment.author.id}"></a>
+        </h2>
+        <p class="card-text" th:text="${comment.text}"></p>
     </div>
 </th:block>
 
 <th:block th:fragment="notLoggedInShort(comment)">
-    <div class="col-md-4">
-        <div th:if="${post.hasDefaultImage}">
-            <img class="img-fluid" role="img" focusable="false" th:src="${@postService.getDefaultImageSmallUrl(post)}">
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card-body">
-            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
-                <h2 class="card-title" th:text="${post.title}"></h2>
-            </a>
-            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
-                <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
-            </a>
-            <p class="card-text" th:text="${post.text}"></p>
-        </div>
+    <div class="card-body">
+        <h2 class="card-title">Post by
+            <a class="text-decoration-none" th:text="${comment.title}" th:href="'/users/' + ${comment.author.id}"></a>
+        </h2>
+        <p class="card-text" th:text="${comment.text}"></p>
     </div>
 </th:block>
 
