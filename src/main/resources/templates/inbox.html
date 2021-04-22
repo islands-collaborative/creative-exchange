@@ -5,7 +5,7 @@
 </head>
 <body>
 <header th:replace="fragments/layout :: header"> </header>
-<main>
+<main class="container px-4 py-5">
     <h1 class="text-center">Inbox</h1>
     <div th:replace="fragments/message :: inboxList(${messages})"></div>
 </main>

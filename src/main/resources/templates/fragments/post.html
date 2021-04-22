@@ -5,12 +5,12 @@
 <body>
 
 <section th:fragment="list(posts)">
-    <ul th:each="post : ${posts}">
-        <li th:replace="fragments/post :: short(${post})"></li>
-    </ul>
+    <div class="p-2" th:each="post : ${posts}">
+        <section th:replace="fragments/post :: short(${post})"></section>
+    </div>
 </section>
 
-<section class="card rounded-3 shadow-lg" th:fragment="short(post)">
+<section class="card rounded-3 shadow-sm" th:fragment="short(post)">
     <div class="row">
         <th:block th:if="${userPrincipal} and ${userPrincipal.id == post.author.id}">
             <th:block th:replace="fragments/post :: usersOwnShort(${post})"></th:block>
@@ -33,10 +33,10 @@
     </div>
     <div class="col-md-8">
         <div class="card-body">
-            <a class="decoration-none" th:href="'/posts/' + ${post.id}">
+            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
                 <h2 class="card-title" th:text="${post.title}"></h2>
             </a>
-            <a th:href="'/users/' + ${post.author.id}">
+            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
                 <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
             </a>
             <p class="card-text" th:text="${post.text}"></p>
@@ -59,10 +59,10 @@
     </div>
     <div class="col-md-8">
         <div class="card-body">
-            <a class="decoration-none" th:href="'/posts/' + ${post.id}">
+            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
                 <h2 class="card-title" th:text="${post.title}"></h2>
             </a>
-            <a class="decoration-none" th:href="'/users/' + ${post.author.id}">
+            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
                 <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
             </a>
             <p class="card-text" th:text="${post.text}"></p>
@@ -78,10 +78,10 @@
     </div>
     <div class="col-md-8">
         <div class="card-body">
-            <a th:href="'/posts/' + ${post.id}">
+            <a class="text-decoration-none" th:href="'/posts/' + ${post.id}">
                 <h2 class="card-title" th:text="${post.title}"></h2>
             </a>
-            <a th:href="'/users/' + ${post.author.id}">
+            <a class="text-decoration-none" th:href="'/users/' + ${post.author.id}">
                 <h3 class="text-muted" th:text="'Post by ' + ${post.author.displayName}"></h3>
             </a>
             <p class="card-text" th:text="${post.text}"></p>
