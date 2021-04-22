@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+</head>
+<body>
+
+<section th:fragment="list(post)">
+    <div class="p-2" th:each="post : ${post.comments}">
+        <section th:replace="fragments/post :: short(${comment})"></section>
+    </div>
+</section>
+
+<section th:fragment="addComment(post)">
+    <form th:action="'/posts/' + ${post.id} + '/comments'" method="post">
+        <textarea name="text"></textarea>
+        <input class="btn btn-outline-primary btn-primary-outline" type="submit" value="Post comment">
+    </form>
+</section>
+
+
+<section class="card rounded-3 shadow-sm" th:fragment="short(comment)">
+    <div class="row">
+        <th:block th:if="${userPrincipal} and ${userPrincipal.id == comment.author.id}">
+            <th:block th:replace="fragments/comment :: usersOwnShort(${comment})"></th:block>
+        </th:block>
+        <th:block th:if="${userPrincipal} and ${userPrincipal.id != comment.author.id}">
+            <th:block th:replace="fragments/comment :: loggedInShort(${comment})"></th:block>
+        </th:block>
+        <th:block th:if="${userPrincipal == null}">
+            <th:block th:replace="fragments/comment :: notLoggedInShort(${comment})"></th:block>
+        </th:block>
+    </div>
+</section>
+
+<th:block th:fragment="usersOwnShort(comment)">
+    <div class="card-body">
+        <h2 class="card-title">Post by
+            <a class="text-decoration-none" th:text="${comment.title}" th:href="'/users/' + ${comment.author.id}"></a>
+        </h2>
+        <p class="card-text" th:text="${comment.text}"></p>
+    </div>
+    <!-- Edit post -->
+</th:block>
+
+<th:block th:fragment="loggedInShort(comment)">
+    <div class="card-body">
+        <h2 class="card-title">Post by
+            <a class="text-decoration-none" th:text="${comment.title}" th:href="'/users/' + ${comment.author.id}"></a>
+        </h2>
+        <p class="card-text" th:text="${comment.text}"></p>
+    </div>
+</th:block>
+
+<th:block th:fragment="notLoggedInShort(comment)">
+    <div class="card-body">
+        <h2 class="card-title">Post by
+            <a class="text-decoration-none" th:text="${comment.title}" th:href="'/users/' + ${comment.author.id}"></a>
+        </h2>
+        <p class="card-text" th:text="${comment.text}"></p>
+    </div>
+</th:block>
+
+</body>
+</html>
