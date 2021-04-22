@@ -26,12 +26,12 @@
                 <textarea id="input-description" name="description"
                           value="${image.description}"></textarea>
             </fieldset>
-            <input type="submit" value="Edit description"></input>
+            <input class="col-md-2 btn btn-outline-primary btn-lg" type="submit" value="Edit description"></input>
         </form>
 
         <form th:action="'/posts/' + ${image.post.id} + '/images/' + ${image.id} + '?_method=delete'"
               method="post">
-            <input type="submit" value="Delete image"></input>
+            <input class="col-md-2 btn btn-outline-primary btn-lg" type="submit" value="Delete image"></input>
         </form>
     </div>
 
@@ -69,10 +69,10 @@
 </section>
 
 <section th:fragment="addPostImages(post)">
-    <form th:action="'/posts/' + ${post.id} + '/images'"
+    <form class="row gx-3" th:action="'/posts/' + ${post.id} + '/images'"
           method="post" enctype="multipart/form-data">
-        <input type="file" name="images" multiple></input>
-        <input type="submit" value="Add images"></input>
+        <input class="form-control form-control-sm col-md-6" type="file" name="images" multiple></input>
+        <input class="col-md-2 btn btn-outline-primary btn-sm" type="submit" value="Add images"></input>
     </form>
 </section>
 
