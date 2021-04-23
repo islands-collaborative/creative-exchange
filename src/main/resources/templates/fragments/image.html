@@ -7,12 +7,15 @@
 <section th:fragment="postImage(image)">
     <img class="img-fluid" th:src="${@postService.getImageUrl(image)}">
     <div class="row justify-content-center">
-        <p th:text="'Description: ' + ${image.description}"></p>
+        <div class="p-2" th:if="${image.description}" th:text="'Description: ' + ${image.description}"></div>
     </div>
 </section>
 
-<section th:fragment="editViewPostImage(${image})">
+<section class="card col-md-9 col-l-8 col-xl-7 col-xxl-6" th:fragment="editViewPostImage(${image})">
     <img th:src="${@postService.getImageUrl(image)}">
+    <div class="row justify-content-center">
+        <div class="p-2" th:if="${image.description}" th:text="'Description: ' + ${image.description}"></div>
+    </div>
 
     <a class="btn btn-secondary" data-bs-toggle="collapse" href="#editDescription" aria-expanded="false" aria-controls="editDescription">
         <i class="bi bi-pencil-fill"></i>
