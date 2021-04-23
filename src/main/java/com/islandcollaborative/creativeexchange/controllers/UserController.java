@@ -1,7 +1,9 @@
 package com.islandcollaborative.creativeexchange.controllers;
 
 import com.islandcollaborative.creativeexchange.models.AppUser;
+import com.islandcollaborative.creativeexchange.models.Post;
 import com.islandcollaborative.creativeexchange.repositories.AppUserRepository;
+import com.islandcollaborative.creativeexchange.repositories.PostRepository;
 import com.islandcollaborative.creativeexchange.services.AppUserService;
 import com.islandcollaborative.creativeexchange.services.FileUploadService;
 import org.apache.tomcat.util.http.fileupload.impl.InvalidContentTypeException;
@@ -27,6 +29,9 @@ public class UserController {
 
     @Autowired
     AppUserRepository appUserRepository;
+
+    @Autowired
+    PostRepository postRepository;
 
     /**
      * @return the discover page
@@ -54,7 +59,9 @@ public class UserController {
     @GetMapping("/users/{userId}")
     public String getUserById(@PathVariable long userId, Model m) {
         AppUser user = appUserRepository.getOne(userId);
+        List<Post> posts = postRepository.getByAuthorOrderByCreatedAtDesc(user);
         m.addAttribute("user", user);
+        m.addAttribute("posts", posts);
         return "user-detail";
     }
 
@@ -100,13 +107,11 @@ public class UserController {
     public RedirectView updateProfile(String displayName,
                                       String bio,
                                       String blurb,
-                                      Boolean isCreator,
                                       HttpServletRequest request) throws IOException {
         AppUser userPrincipal = appUserRepository.findByUsername(request.getUserPrincipal().getName());
-        if (bio != null || bio.isEmpty()) userPrincipal.setBio(bio);
-        if (displayName != null || displayName.isEmpty()) userPrincipal.setDisplayName(displayName);
-//        if (isCreator != null ) userPrincipal.setCreator(isCreator);
-        if (blurb != null || blurb.isEmpty()) userPrincipal.setBlurb(blurb);
+        if (bio != null && !bio.isEmpty()) userPrincipal.setBio(bio);
+        if (displayName != null && !displayName.isEmpty()) userPrincipal.setDisplayName(displayName);
+        if (blurb != null && !blurb.isEmpty()) userPrincipal.setBlurb(blurb);
         appUserRepository.save(userPrincipal);
         return new RedirectView("profile");
     }
@@ -135,8 +140,8 @@ public class UserController {
         appUserRepository.save(userPrincipal);
 
         return new RedirectView("/users/" + userId);
-
     }
+
     @DeleteMapping("/follow/{id}")
     public RedirectView unfollowUser (HttpServletRequest request, @PathVariable long id){
 
