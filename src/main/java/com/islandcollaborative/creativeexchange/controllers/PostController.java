@@ -102,8 +102,8 @@ public class PostController {
     @PutMapping("/posts/{postId}")
     public RedirectView updatePosts(@PathVariable long postId, String text, String title) {
         Post post = postRepository.getOne(postId);
-        post.setText(text);
-        post.setTitle(title);
+        if (text != null && !text.isBlank()) post.setText(text);
+        if (title != null && !title.isBlank()) post.setTitle(title);
         postRepository.save(post);
         return new RedirectView("/posts/" + postId + "/edit");
     }
