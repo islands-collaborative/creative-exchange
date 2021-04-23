@@ -13,6 +13,9 @@
         <h2 th:if="${user.blurb}" th:text="'Blurb: ' + ${user.blurb}"></h2>
         <p th:if="${user.bio}" th:text="'Bio: ' + ${user.bio}"></p>
         <div th:replace="fragments/follow :: follow(${user}) "></div>
+
+        <div></div>
+
         <a th:if="${userPrincipal} and ${userPrincipal.id != user.id}" class="btn btn-secondary" th:href="'/users/' + ${user.id} + '/messages'" th:text="'Message ' + ${user.displayName}"></a>
 
         <section th:replace="fragments/post :: list(${posts})"></section>
