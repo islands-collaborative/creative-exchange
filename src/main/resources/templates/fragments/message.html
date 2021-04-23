@@ -79,6 +79,7 @@
 </th:block>
 
 <ul th:fragment="inboxList(messages)" class="container">
+    <a href="/discover"><h3 th:if="${messages.isEmpty()}">No active message threads. Visit a Creator Profile to send a message</h3></a>
     <th:block th:each="message : ${messages}">
         <li th:replace="fragments/message :: inbox(${message})"></li>
     </th:block>
