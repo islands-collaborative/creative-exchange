@@ -38,9 +38,6 @@ public class AppUserService {
         if (ext == null) throw new InvalidContentTypeException("File type must be a jpg or png");
 
         String path = profileImageRoot + userPrincipal.getId() + ext;
-        System.out.println("=============DEBUG============");
-        System.out.println(path);
-        System.out.println("=============DEBUG============");
         InputStream stream = new BufferedInputStream(image.getInputStream());
 
         try {
@@ -56,9 +53,6 @@ public class AppUserService {
     }
 
     public String getProfilePicturePath(AppUser userPrincipal) {
-        System.out.println("=============DEBUG============");
-        System.out.println(profileImageRoot + userPrincipal.getId() + userPrincipal.getImageExtension());
-        System.out.println("=============DEBUG============");
         return userPrincipal.hasProfilePicture() ?
                 fileUploadService.getURL(
                 profileImageRoot + userPrincipal.getId() +
