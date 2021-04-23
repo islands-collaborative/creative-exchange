@@ -22,7 +22,7 @@
             </form>
         </div>
         <h2 th:text="'Post by ' + ${post.author.displayName}"></h2>
-        <h3 th:text="'Posted on ' + ${post.createdAt}"></h3>
+        <h3 th:text="'Posted on ' + ${@dateTimeService.formattedDateTime(post.createdAt)}"></h3>
 
 
         <section th:text="'Description: ' + ${post.text}"></section>
